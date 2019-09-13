@@ -1,19 +1,69 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>{{.title}}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
-    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
-    <script src="/public/js/jquery-2.2.4.min.js"></script>
-    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
-    {{range .moreStyles}}
-      <link rel="stylesheet" type="text/css" href="/public/{{.}}">
+<!-- Routes
+    GET /Login
+    GET /Logout
+-->
+
+<!-- We're keeping scripts here for showing off purposes.
+This allows us to just keep the code written purely by me onto git,
+instead of flooding with local compiled scripts.-->
+
+<!-- In real production environments,
+We would want to minify these scripts.-->
+
+<head>
+  <title>{{.title}}</title>
+  <!-- Styling Content-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/public/css/uikit/uikit.min.css" />
+  <script src="/public/js/uikit/uikit.min.js"></script>
+  <script src="/public/js/uikit/uikit-icons.min.js"></script>
+  <!-- Web Tab Icon -->
+  <link rel="shortcut icon" type="image/gif" href="/public/img/favicon.gif">
+  <!-- ReactJS -->
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Web Login Info -->
+  <script src="/public/js/userinfo.js" type="text/babel"></script>
+</head>
+
+<body>
+
+  <!-- Discord Information -->
+  <section>
+    <!-- Hidden Divs with information to access -->
+    {{range $i, $values := .discordmap}}
+    <div id="{{$i}}" value="{{$values}}"></div>
     {{end}}
-    {{range .moreScripts}}
-      <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
-    {{end}}
-  </head>
-  <body>
+  </section>
+
+  <!-- Navigation -->
+
+  <nav class="uk-navbar uk-navbar-container">
+    <div class="uk-navbar-left">
+      <a class="uk-navbar-toggle" href="#offcanvas-slide" uk-toggle>
+        <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+      </a>
+    </div>
+    <div class="uk-navbar-right" id="discordinfo">
+    </div>
+    <div uk-dropdown class="uk-background-muted" id="usernavdropdown">
+      <ul class="uk-nav uk-dropdown-nav">
+        <li><a href="/Logout">Logout</a></li>
+      </ul>
+    </div>
+
+
+
+  </nav>
+
+  <!-- Sets Discord Info at top of page-->
+  <script type="text/babel">
+    userlogin()
+  </script>

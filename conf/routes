@@ -6,8 +6,14 @@
 module:testrunner
 # module:jobs
 
-
-GET     /                                       App.Index
+GET     /                                      Result.Index
+POST    /Search                                Result.Search
+POST    /Obtain                                Result.Obtain
+GET     /Profit                                Result.Profit
+GET     /Login                                 Oauth.Login
+GET     /User                                  Oauth.User
+GET     /UserInfo                              Oauth.UserInfo
+GET     /Logout                                Oauth.LogOut
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

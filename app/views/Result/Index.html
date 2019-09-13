@@ -1,0 +1,54 @@
+{{set . "title" "Results"}}
+{{template "header.html" .}}
+<!-- Routes
+    GET  /Profit
+    POST /Search
+-->
+<div id="offcanvas-slide" uk-offcanvas>
+    <div class="uk-offcanvas-bar">
+
+        <ul class="uk-nav uk-nav-default">
+            <li class="uk-active"><a href="/">Home</a></li>
+            <li><a href="/Profit">Profits</a></li>
+        </ul>
+
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="span6">
+            {{template "flash.html" .}}
+        </div>
+    </div>
+</div>
+
+<section>
+    <div class="uk-section uk-background-secondary uk-light">
+        <div class="uk-container" uk-height-viewport="expand: true">
+
+            <div class="uk-grid-match uk-width-5-6 uk-float-right" uk-grid>
+
+                <!-- This allows us to receive the RecipeID for our Functions -->
+                <form action="/Search" method="post">
+                    <fieldset class="uk-fieldset">
+
+                        <legend class="uk-legend">Find Information for Recipes</legend>
+
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" name="recipename" placeholder="Item Name">
+                        </div>
+
+                        <button class="uk-button uk-button-primary" type="submit"
+                            uk-toggle="target: #searchspinner">Search</button>
+                        <div uk-spinner hidden id="searchspinner"></div>
+                    </fieldset>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</section>
