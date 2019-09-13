@@ -1,0 +1,11 @@
+test-results/
+tmp/
+routes/
+/keys/keys.go
+/public/img/icon/
+/public/css/uikit/
+/public/js/uikit/
+conf/app.conf
+app/init.go
+/cert/
+frontendbin/

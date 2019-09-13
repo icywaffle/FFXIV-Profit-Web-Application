@@ -1,0 +1,24 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+
+<header class="jumbotron" style="background-color:#A9F16C">
+  <div class="container">
+    <div class="row">
+      <h1>It works!</h1>
+      <p>We're gonna be using this container as the front end application</p>
+      <p>what we can do is to separate our front end and backend applications</p>
+      <p>When the someone hits the main revel application, that's just a skeleton</p>
+      <p>This is the dockerized frontend. Or at least it should be!</p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+{{template "footer.html" .}}
