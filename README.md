@@ -1,58 +1,68 @@
-## Front-End for Dockerization
-This is the front-end microservice that should be almost readily available to be dockerized by building the whole package into a single binary, and then deploying it and building the docker image from this binary.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-To make this a bit more simple, since we use the Revel Framework, we can just use `GOOS=linux GOARCH=amd64 revel build appname`.
+## Available Scripts
 
-## The Dockerfile
-We're running on alpine linux to keep the image as small as possible.
-We could also not use `RUN apk add --no-cache bash` the bash install, and can try just `ENDPOINT ["/go/src/frontendbin/run.sh"]` but it might spit out an error, and we'd have to test that later on.
+In the project directory, you can run:
 
-We basically copy our frontendbin, which is our built binary, to the folder that we've created. Then we basically set all the read and write permissions to 777 which allows our bash file `run.sh` to successfully run the whole revel application.
+### `npm start`
 
-## Motivation
-Most modern web development use containerization of their microservices so that they can push updates and work on one specific container without interrupting any flow to the other containers, being nearly independent of each other. We don't have to bring our whole server down just to update a single service, rather we can just bring down a specific page to start rolling updates.
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Tech/framework used
-<b>Built with</b>
-- [Golang](https://golang.org/)
-A simplified programming language, that is great for web development,
-and also has very clean syntax.
-- [MongoDB](https://www.mongodb.com/)
-A No-SQL Database, since there are certain items that do not follow
-a strict Schema.
-- [Revel](https://revel.github.io/)
-A Full-Stack web framework to run the entire project.
-- [UIKit](https://getuikit.com/)
-A Front-End web framework that minimilistically styles the site.
-- [Docker](https://www.docker.com/)
-A containerization platform that allows you to build microservices and isolate different sections of the web application.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-<b>Additional Dependencies</b>
-- [MongoDB-Go-Driver](https://github.com/mongodb/mongo-go-driver)
-A MongoDB Driver that allows an easier way to access the mongodb.
-- [SaintCoinach](https://github.com/ufx/SaintCoinach)
-Extracts game assets from Final Fantasy XIV, i.e. Item Icons.
+### `npm test`
 
-## Structure
-This frontend application should be the second thing that users will hit when accessing a website. This is because we should have a front server that redirects a user to this container. This allows us to store a user's session, and share those sessions across containers. If we happen to hit this application first, we wouldn't be able to consistently store a session across different microservices.
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Testing
+### `npm run build`
 
-Tests can be accessed by going into /@tests in the browser.
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Tests can be built by the `marketboard/tests` folder.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-## API Reference
-- [XIVAPI] (https://xivapi.com/)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## How to use?
-For this section, we would have to build the revel application
+### `npm run eject`
 
-`GOOS=linux GOARCH=amd64 revel build marketboard-frontend outputname`
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-Then we would have to build the docker image, assuming you've built the dockerfile inside the application (which is included).
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-`docker build -t containername .`
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-## License
-MIT © [2019] (Jacob Nguyen)
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
