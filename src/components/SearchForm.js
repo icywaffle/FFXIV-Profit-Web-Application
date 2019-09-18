@@ -20,6 +20,7 @@ class SearchForm extends React.Component {
         this.nextPage = this.nextPage.bind(this)
         this.prevPage = this.prevPage.bind(this)
         this.handleItemClick = this.handleItemClick.bind(this)
+        this.handleFormEnter = this.handleFormEnter.bind(this)
     }
 
     // Event takes ANY event, with a specific event name
@@ -84,12 +85,11 @@ class SearchForm extends React.Component {
     // Handles the Item Clicked in a list after searching for specific recipes
     // Will grab the recipeID from the clicked item, and searches the backend RESTful API
     handleItemClick(event) {
-        console.log("We got it working")
         const { name, value } = event.target
         this.setState({
             itemClicked: true,
+            loading: true,
         }, () => {
-            console.log(name, value)
             // We now have a recipeID
             // Given this recipeID, we need to call the database, for the information
             this.backendSearch(value)
@@ -97,15 +97,20 @@ class SearchForm extends React.Component {
 
     }
 
+    handleFormEnter(event) {
+        event.preventDefault()
+        this.handleClick()
+    }
+
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     backendSearch(recipeID) {
         const url = "http://localhost:9000/recipe/" + recipeID
-        console.log(url)
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 this.setState({
                     recipeData: data,
+                    loading: false,
                 })
             })
     }
@@ -114,13 +119,14 @@ class SearchForm extends React.Component {
     xivapiSearch() {
         const searchedfor = this.state.itemName
         const url = "https://xivapi.com/search?indexes=recipe&filters=&string=" + searchedfor + "&page=" + this.state.currPage.toString()
-        console.log(url)
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 this.setState({
                     loading: false,
                     searchData: data,
+                    // Empty out whatever we had before, if we decide to search again
+                    recipeData: {},
                     itemClicked: false,
                 })
             })
@@ -148,11 +154,13 @@ class SearchForm extends React.Component {
         return (
             <div>
                 <SearchFormComponent
+                    handleFormEnter={this.handleFormEnter}
                     handleChange={this.handleChange}
                     handleClick={this.handleClick}
                     {...this.state}
                 />
                 {searchResults}
+
             </div>
         )
 

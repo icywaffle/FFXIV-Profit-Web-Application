@@ -2,7 +2,6 @@ import React from 'react'
 import '../../node_modules/uikit/dist/css/uikit.css'
 import '../../node_modules/uikit/dist/js/uikit.js'
 function MainRecipe(baseinfo) {
-    console.log(baseinfo)
     return (
         <section>
             <div className="uk-section uk-background-secondary uk-animation-slide-left uk-light">
@@ -12,13 +11,13 @@ function MainRecipe(baseinfo) {
                         <h4>
                             <img
                                 className="itemicon"
-                                uk-img alt="icon"
+                                alt="icon"
                                 src={"icon/0" + baseinfo.Recipes.IconID.toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IconID.toString() + ".png"}
                             />
                             {baseinfo.Recipes.Name}
                         </h4>
                         <ul className="uk-list">
-                            <li>On Market: {baseinfo.Prices.OnMarketboard}</li>
+                            <li>On Market: {baseinfo.Prices.OnMarketboard.toString()}</li>
                             <li>Marketboard Price: <span className=" pricenumber">{baseinfo.Prices.LowestMarketPrice}</span>
                             </li>
                             <li>
@@ -39,27 +38,36 @@ function MainRecipe(baseinfo) {
 
 function MainMaterials(baseinfo, matinfo) {
     const materialList = baseinfo.Recipes.IngredientNames.map((material, index) => {
-        const marketInfo = (matinfo.Prices[baseinfo.Recipes.IngredientID[index]] === undefined)
+        // If there is no material, just return nothing
+        if (material === "") {
+            return ""
+        }
+
+        // For each material, we want to make it an accordion content.
+        // So we would need to place all the information here
+        const ingredientID = baseinfo.Recipes.IngredientID[index]
+
+        const marketInfo = (matinfo.Prices[ingredientID] === undefined)
             ? ""
             : (<ul className="uk-list">
                 <li>
                     Lowest Market Price :
-                    <span className="pricenumber">{matinfo.Prices[baseinfo.Recipes.IngredientID[index]].LowestMarketPrice}</span>
+                    <span className="pricenumber">{matinfo.Prices[ingredientID].LowestMarketPrice}</span>
                 </li>
                 <li>
-                    On Marketboard : {matinfo.Prices[baseinfo.Recipes.IngredientID[index]].OnMarketboard}
+                    On Marketboard : {matinfo.Prices[ingredientID].OnMarketboard}
                 </li>
                 <li>
-                    Added : <span className="datetime">{matinfo.Prices[baseinfo.Recipes.IngredientID[index]].Added}</span>
+                    Added : <span className="datetime">{matinfo.Prices[ingredientID].Added}</span>
                 </li>
             </ul>
             )
+
         return (
             <li>
                 <a className="uk-accordion-title" href="">
                     <img
                         className="itemicon"
-                        uk-img
                         src={"icon/0" + baseinfo.Recipes.IngredientIconID[index].toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IngredientIconID[index].toString() + ".png"}
                     />
                     <span>{material}</span>
@@ -89,7 +97,6 @@ function MainMaterials(baseinfo, matinfo) {
     )
 }
 function BackendResponse(props) {
-    console.log(props.recipeData)
     const mainrecipe = MainRecipe(props.recipeData.MainRecipe)
     const mainmaterials = MainMaterials(props.recipeData.MainRecipe, props.recipeData.InnerRecipes)
     return (<div>
