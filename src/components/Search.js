@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../node_modules/uikit/dist/css/uikit.css'
-import SearchForm from './SearchForm'
+import SearchForm from './searchcomponents/SearchForm'
 
 function Search() {
     return (

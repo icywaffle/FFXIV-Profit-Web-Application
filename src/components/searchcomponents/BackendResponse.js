@@ -1,6 +1,6 @@
 import React from 'react'
-import '../../node_modules/uikit/dist/css/uikit.css'
-import '../../node_modules/uikit/dist/js/uikit.js'
+import '../../../node_modules/uikit/dist/css/uikit.css'
+import 'uikit'
 function MainRecipe(baseinfo) {
     return (
         <section>
