@@ -1,68 +1,59 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Front-End of Marketboard Project
 
-## Available Scripts
+[ffxivprofit](http://ffxivprofit.com/)
 
-In the project directory, you can run:
+THis is the front-end of the new containized application of the Marketboard Project.
+This is built using Node.JS, and Create-React-App, and it's a single paged application that deals with searching for an item, and looking for the provided information about that item such as item recipes, materials, and profits.
 
-### `npm start`
+This section is meant to be just one of the microservices that we can have, and to have the other microservices, we would just need to have the endpoint of our server of ffxivprofit.com to be the "load-balancer", and route people to the different pages as requested.
+This would be a more primitive loadbalancer since it doesn't actually direct based off of traffic, and there's only one web server. But the load balancer could be built when scaling upwards.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Motivation
+Dockerizing an application makes it more modular, and we can update and change our different docker containers and add more microservices, without actually significantly impacting user experience.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Tech Stack
+<b>Built with</b>
+- [Create-React-App](https://github.com/facebook/create-react-app)
+A simple toolchain that allows you to easily build a single page front-end web application that allows you to jump right into React.
+- [React.js](https://reactjs.org/)
+A front-end web framework that utilizes JSX and Javascript that allows and easier way to create dynamic and responsive web pages.
+- [Docker](https://www.docker.com/)
+A containerization application that allows you to create simple microservices, so that you can easily scale your web applications.
+- [UIKit](https://getuikit.com/)
+A Front-End web framework that minimilistically styles the site.
+- [XIVAPI](https://xivapi.com/)
+A RESTful API endpoint that allows you to find information of items in an MMORPG, Final Fantasy XIV Online.
 
-### `npm test`
+## Current Features
+A search to be able to look for what items you want to craft.
+A list of materials of that item you would like to craft, and a list of materials for those materials.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Future Features
+Total List of prices and materials that you need for crafting.
+Save your searched items into the database so that you can compare which items may net you more profit
+A cost of time in how much materials to actually gather.
 
-### `npm run build`
+## Structure
+Since this is built using Create-React-App, it's basically a single paged application that calls for the backend server when you've chosen a specific item that you would want.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The file architecture starts with
+`index.js`
+`Search.js`
+`searchcomponents`
+where the index calls for the search function, or search component, and that component is made up of multiple smaller components, the search bar, the item information display etc.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Testing
+Testing is not yet implemented.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to use?
+[ffxivprofit!](http://ffxivprofit.com/)
 
-### `npm run eject`
+## Development
+The whole front-end application requires Node.js to be installed. This is so that you can run the application by
+`npm run`
+However, there's no need to build first, this application.
+The docker file will be in two stages, one to build the package for production in an alpine image containing Node.js, then the second part will be ran in nginx, which optimizes image size, and exposes the default http and https ports.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## License
+MIT © [2019] (Jacob Nguyen)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
