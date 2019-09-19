@@ -13,6 +13,8 @@ Dockerizing an application makes it more modular, and we can update and change o
 
 ## Tech Stack
 <b>Built with</b>
+- [NGINX](https://www.nginx.com/)
+A web server that can be used to hold front-end applications easier using docker.
 - [Create-React-App](https://github.com/facebook/create-react-app)
 A simple toolchain that allows you to easily build a single page front-end web application that allows you to jump right into React.
 - [React.js](https://reactjs.org/)
