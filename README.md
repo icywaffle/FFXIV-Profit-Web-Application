@@ -59,29 +59,49 @@ The docker file will be in two stages, one to build the package for production i
 Now that we have multiple dockerfiles, in order to run them together and allow the containers to access themselves, in our docker-compose.yaml,
 
 `
+
 version: "3"
+
 services: 
+
   Backend: 
+  
     image: imagerepo:backendtag
+    
     ports: 
+    
       - "9000:9000"
+      
   Frontend:
+  
     image: imagerepo:frontendtag
+    
     ports: 
+    
       - "80:80"
+      
       - "443:443"
+      
 `
 
 The names of the containers should be as such, since it's dedicated inside the nginx.conf file.
 
 `
+
 upstream docker-backend {
+
 		server Backend:9000;
+		
 	}
+	
   ...
+  
   location /recipe/ {
+  
 			proxy_pass http://docker-backend/recipe/;
+			
    ...
+   
 `
 
 This clever upstream allows us to redirect to an HTTP backend RESTful server, behind the HTTPS NGINX web server.
