@@ -58,11 +58,10 @@ The docker file will be in two stages, one to build the package for production i
 
 Now that we have multiple dockerfiles, in order to run them together and allow the containers to access themselves, in our docker-compose.yaml,
 
-`
+```
+ version: "3"
 
-version: "3"
-
-services: 
+ services: 
 
   Backend: 
   
@@ -80,15 +79,14 @@ services:
     
       - "80:80"
       
-      - "443:443"
-      
-`
+      - "443:443" 
+```
 
 The names of the containers should be as such, since it's dedicated inside the nginx.conf file.
 
-`
+```
 
-upstream docker-backend {
+ upstream docker-backend {
 
 		server Backend:9000;
 		
@@ -102,7 +100,7 @@ upstream docker-backend {
 			
    ...
    
-`
+```
 
 This clever upstream allows us to redirect to an HTTP backend RESTful server, behind the HTTPS NGINX web server.
 
