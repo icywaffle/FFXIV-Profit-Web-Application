@@ -14,7 +14,7 @@ Dockerizing an application makes it more modular, and we can update and change o
 ## Tech Stack
 <b>Built with</b>
 - [NGINX](https://www.nginx.com/)
-A web server that can be used to hold front-end applications easier using docker.
+A web server that can be used to hold front-end applications easier, using a Docker Image.
 - [Create-React-App](https://github.com/facebook/create-react-app)
 A simple toolchain that allows you to easily build a single page front-end web application that allows you to jump right into React.
 - [React.js](https://reactjs.org/)
@@ -55,6 +55,33 @@ The whole front-end application requires Node.js to be installed. This is so tha
 `npm run`
 However, there's no need to build first, this application.
 The docker file will be in two stages, one to build the package for production in an alpine image containing Node.js, then the second part will be ran in nginx, which optimizes image size, and exposes the default http and https ports.
+
+Now that we have multiple dockerfiles, in order to run them together and allow the containers to access themselves, in our docker-compose.yaml,
+
+`
+version: "3"
+services: 
+  Backend: 
+    image: imagerepo:backendtag
+    ports: 
+      - "9000:9000"
+  Frontend:
+    image: imagerepo:frontendtag
+    ports: 
+      - "80:80"
+      - "443:443"
+`
+The names of the containers should be as such, since it's dedicated inside the nginx.conf file.
+`
+upstream docker-backend {
+		server Backend:9000;
+	}
+  ...
+  location /recipe/ {
+			proxy_pass http://docker-backend/recipe/;
+   ...
+`
+This clever upstream allows us to redirect to an HTTP backend RESTful server, behind the HTTPS NGINX web server.
 
 ## License
 MIT © [2019] (Jacob Nguyen)
