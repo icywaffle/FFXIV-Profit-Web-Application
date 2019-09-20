@@ -71,7 +71,9 @@ services:
       - "80:80"
       - "443:443"
 `
+
 The names of the containers should be as such, since it's dedicated inside the nginx.conf file.
+
 `
 upstream docker-backend {
 		server Backend:9000;
@@ -81,6 +83,7 @@ upstream docker-backend {
 			proxy_pass http://docker-backend/recipe/;
    ...
 `
+
 This clever upstream allows us to redirect to an HTTP backend RESTful server, behind the HTTPS NGINX web server.
 
 ## License
