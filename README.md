@@ -51,38 +51,57 @@ Testing is not yet implemented.
 [ffxivprofit!](http://ffxivprofit.com/)
 
 ## Development
-The whole front-end application requires Node.js to be installed. This is so that you can run the application by
-`npm run`
-However, there's no need to build first, this application.
-The docker file will be in two stages, one to build the package for production in an alpine image containing Node.js, then the second part will be ran in nginx, which optimizes image size, and exposes the default http and https ports.
+The application actually requires you to install Node.js for it's npm tool. Once installed, you need to build the application.
+
+`npm run build`
+
+Then you can build the docker image after. We could do it in a two step process instead, taking advantage of the dockerfile's two step approach.
 
 Now that we have multiple dockerfiles, in order to run them together and allow the containers to access themselves, in our docker-compose.yaml,
 
-`
-version: "3"
-services: 
+```
+ version: "3"
+
+ services: 
+
   Backend: 
+  
     image: imagerepo:backendtag
+    
     ports: 
+    
       - "9000:9000"
+      
   Frontend:
+  
     image: imagerepo:frontendtag
+    
     ports: 
+    
       - "80:80"
-      - "443:443"
-`
+      
+      - "443:443" 
+```
 
 The names of the containers should be as such, since it's dedicated inside the nginx.conf file.
 
-`
-upstream docker-backend {
+```
+
+ upstream docker-backend {
+
 		server Backend:9000;
+		
 	}
+	
   ...
+  
   location /recipe/ {
+  
 			proxy_pass http://docker-backend/recipe/;
+			
    ...
-`
+   
+```
 
 This clever upstream allows us to redirect to an HTTP backend RESTful server, behind the HTTPS NGINX web server.
 
