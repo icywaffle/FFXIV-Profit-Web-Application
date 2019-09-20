@@ -104,7 +104,7 @@ class SearchForm extends React.Component {
 
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     backendSearch(recipeID) {
-        const url = "http://localhost:9000/recipe/" + recipeID
+        const url = "https://" + window.location.hostname + "/recipe/" + recipeID
         fetch(url)
             .then(response => response.json())
             .then(data => {
