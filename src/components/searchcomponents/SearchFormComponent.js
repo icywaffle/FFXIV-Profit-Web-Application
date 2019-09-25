@@ -1,9 +1,7 @@
 import React from 'react'
 
 function SearchFormComponent(props) {
-    const loadingSpinner = props.loading
-        ? <div uk-spinner="ratio: 3"></div>
-        : <div></div>
+
     return (
         <section>
             <div className="uk-section uk-background-secondary uk-animation-slide-left uk-light">
@@ -24,7 +22,6 @@ function SearchFormComponent(props) {
                             >
                                 Search
                             </button>
-                            {loadingSpinner}
                         </form>
                     </div>
                 </div>

@@ -49,6 +49,7 @@ class AppRouter extends React.Component {
                                         href="https://github.com/icywaffle/marketboard-frontend"
                                         uk-tooltip="title: Front-End; pos: top"
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                         uk-icon="icon: github">
                                     </a>
                                 </li>
@@ -57,6 +58,7 @@ class AppRouter extends React.Component {
                                         href="https://github.com/icywaffle/marketboard-backend"
                                         uk-tooltip="title: Back-End; pos: top"
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                         uk-icon="icon: github-alt">
                                     </a>
                                 </li>

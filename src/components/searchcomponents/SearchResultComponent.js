@@ -28,8 +28,12 @@ function createList(props) {
     })
     return listItems
 }
+
+
+
 function SearchResultComponent(props) {
     const itemList = createList(props)
+
     return (<div>
         <div className="uk-section uk-section-muted uk-animation-slide-left">
             <div className="uk-container uk-width-3-4 uk-float-right" uk-height-viewport="expand: true">
@@ -38,24 +42,11 @@ function SearchResultComponent(props) {
                         {itemList}
                     </ul>
                 </div>
+                <div>
+
+                </div>
             </div>
         </div>
-        <button
-            className="uk-button uk-button-secondary"
-            type="button"
-            uk-toggle="target: #searchspinner"
-            onClick={props.prevPage}
-        >
-            Prev Page
-        </button>
-        <button
-            className="uk-button uk-button-secondary"
-            type="button"
-            uk-toggle="target: #searchspinner"
-            onClick={props.nextPage}
-        >
-            Next Page
-        </button>
     </div>)
 }
 
