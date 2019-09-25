@@ -129,10 +129,11 @@ class SearchForm extends React.Component {
 
     // Uses the xivapi Search response to obtain a quicker way to search for a specific recipe that we may not have in the database
     // Default pagenumber should be 1. If there are other pages, the next page and prev page buttons should handle that
+    // These pages should be stored into a temp cache, so that you don't spam call to the API, for the exact same item
     xivapiSearch(pageNumber = "1") {
         const searchedfor = this.state.itemName
         const url = "https://xivapi.com/search?indexes=recipe&filters=&string=" + searchedfor + "&page=" + pageNumber
-        const cachedXIVAPI = localStorage.getItem(searchedfor + pageNumber)
+        const cachedXIVAPI = sessionStorage.getItem(searchedfor + pageNumber)
         if (cachedXIVAPI) {
             this.setState({
                 searchData: JSON.parse(cachedXIVAPI),
@@ -150,7 +151,7 @@ class SearchForm extends React.Component {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    localStorage.setItem(searchedfor + pageNumber, JSON.stringify(data))
+                    sessionStorage.setItem(searchedfor + pageNumber, JSON.stringify(data))
                     this.setState({
                         loading: false,
                         searchData: data,
