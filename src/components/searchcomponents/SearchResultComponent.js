@@ -13,7 +13,7 @@ function createList(props) {
         return (
             <li key={item.ID}>
                 <img
-                    src={"icon/" + item.Icon.substr(3)}
+                    src={"/icon/" + item.Icon.substr(3)}
                     alt="Icon"
                 >
                 </img>
