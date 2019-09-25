@@ -166,6 +166,69 @@ class Home extends React.Component {
                                     </a>}
                                 Details="A minimilistic front-end styling web framework, driving most of the styling for the web application"
                             />
+                            <TechStack
+                                Style="uk-text-center uk-scrollspy-inview uk-animation-fade"
+                                ImageLink="/images/xivapi.png"
+                                AppName={
+                                    <a
+                                        href="https://xivapi.com/"
+                                        title="XIVAPI"
+                                        className="uk-button uk-button-primary uk-text-capitalize uk-scrollspy-inview uk-animation-fade"
+                                        data-uk-scrollspy-class="uk-animation-fade"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        XIVAPI
+                                    </a>}
+                                Details="A RESTful API that has a huge amount of data collected from Final Fantasy XIV"
+                            />
+                        </div>
+                    }
+                />
+                <HomeSection
+                    SectionStyle={"uk-section uk-background-secondary"}
+                    Style={"uk-container uk-text-center"}
+                    MiniTitle={<h6 className="uk-text-primary">Github</h6>}
+                    Subtitle={
+                        <div className="uk-light">
+                            <h2>Full-Stack Code</h2>
+                            <div
+                                className="uk-grid uk-grid-large uk-margin-large-top uk-child-width-1-2@m"
+                                uk-scrollspy="cls:uk-animation-fade"
+                            >
+                                <TechStack
+                                    Style="uk-text-center uk-first-column uk-scrollspy-inview uk-animation-fade"
+                                    ImageLink="/images/github-octocat.svg"
+                                    AppName={
+                                        <a
+                                            href="https://github.com/icywaffle/marketboard-frontend"
+                                            title="Frontend"
+                                            className="uk-button uk-button-primary uk-text-capitalize uk-scrollspy-inview uk-animation-fade"
+                                            data-uk-scrollspy-class="uk-animation-fade"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Front-End
+                                    </a>}
+                                    Details="Front-end dockerized code, suited up with an NGINX config file to be built into a Docker Image"
+                                />
+                                <TechStack
+                                    Style="uk-text-center uk-first-column uk-scrollspy-inview uk-animation-fade"
+                                    ImageLink="/images/github-icon.svg"
+                                    AppName={
+                                        <a
+                                            href="https://github.com/icywaffle/marketboard-backend"
+                                            title="Frontend"
+                                            className="uk-button uk-button-primary uk-text-capitalize uk-scrollspy-inview uk-animation-fade"
+                                            data-uk-scrollspy-class="uk-animation-fade"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Back-End
+                                    </a>}
+                                    Details="Back-end dockerized code, using the Revel framework, ready to be built into a Docker Image"
+                                />
+                            </div>
                         </div>
                     }
                 />

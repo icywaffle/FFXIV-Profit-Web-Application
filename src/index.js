@@ -25,40 +25,43 @@ class AppRouter extends React.Component {
         return (
             <Router>
                 <div>
-                    <nav className="uk-navbar-container uk-navbar">
-                        <div className="uk-navbar-left">
-                            <ul className="uk-navbar-nav">
-                                <li>
-                                    <Link to="/">Home</Link>
-                                </li>
-                                <li>
-                                    <Link to="/search/">Search</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="uk-navbar-right">
-                            <ul className="uk-navbar-nav">
-                                <li>
-                                    <a
-                                        href="https://github.com/icywaffle/marketboard-frontend"
-                                        uk-tooltip="title: Front-End; pos: top"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        uk-icon="icon: github">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://github.com/icywaffle/marketboard-backend"
-                                        uk-tooltip="title: Back-End; pos: top"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        uk-icon="icon: github-alt">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                    <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-light; top: 200">
+                        <nav className="uk-navbar-container uk-background-secondary uk-navbar">
+                            <div className="uk-navbar-left">
+                                <ul className="uk-navbar-nav">
+                                    <li>
+                                        <Link to="/">Home</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/search/">Search</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="uk-navbar-right">
+                                <ul className="uk-navbar-nav">
+                                    <li>
+                                        <a
+                                            href="https://github.com/icywaffle/marketboard-frontend"
+                                            uk-tooltip="title: Front-End; pos: top"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            uk-icon="icon: github">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="https://github.com/icywaffle/marketboard-backend"
+                                            uk-tooltip="title: Back-End; pos: top"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            uk-icon="icon: github-alt">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
                     <div>
                         <Route path="/" exact component={Index} />
                         <Route path="/search/" component={ItemSearch} />
