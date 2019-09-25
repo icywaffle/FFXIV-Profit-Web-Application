@@ -11,7 +11,7 @@ class PrevPage extends React.Component {
     render() {
         if (this.props.pagePrev != null) {
             return (<button
-                className="uk-button uk-button-secondary"
+                className="uk-button"
                 type="button"
                 onClick={this.handleClick}
             >
@@ -19,7 +19,7 @@ class PrevPage extends React.Component {
             </button>
             )
         } else {
-            return (<div></div>)
+            return ("")
         }
 
     }
@@ -34,7 +34,7 @@ class NextPage extends React.Component {
         if (this.props.pageNext != null) {
             return (
                 <button
-                    className="uk-button uk-button-secondary"
+                    className="uk-button"
                     type="button"
                     onClick={this.handleClick}
                 >
@@ -79,11 +79,18 @@ class SearchForm extends React.Component {
 
 
     prevPage(prevPage) {
-        this.xivapiSearch(prevPage)
+        this.setState({
+            loading: true,
+        }, this.xivapiSearch(prevPage))
+
     }
 
     nextPage(nextPage) {
-        this.xivapiSearch(nextPage)
+        this.setState({
+            loading: true,
+        }, () => {
+            this.xivapiSearch(nextPage)
+        })
     }
 
 
@@ -189,7 +196,7 @@ class SearchForm extends React.Component {
 
         const loadingSpinner = this.state.loading
             ? <div uk-spinner="ratio: 3"></div>
-            : <div></div>
+            : ""
 
         const pageNext = Object.entries(this.state.searchData).length === 0
             ? null
@@ -201,23 +208,40 @@ class SearchForm extends React.Component {
 
         return (
             <div>
-                <SearchFormComponent
-                    handleFormEnter={this.handleFormEnter}
-                    handleChange={this.handleChange}
-                    handleClick={this.handleClick}
-                    {...this.state}
-                />
-                {loadingSpinner}
-                {searchResults}
+                <div className="uk-section uk-background-secondary uk-animation-slide-left uk-light">
+                    <SearchFormComponent
+                        handleFormEnter={this.handleFormEnter}
+                        handleChange={this.handleChange}
+                        handleClick={this.handleClick}
+                        {...this.state}
+                    />
+                </div>
+                <div className="uk-section uk-background-muted uk-animation-slide-left">
+                    {loadingSpinner}
+                    {searchResults}
+                </div>
+                <div className="uk-section uk-background-muted uk-animation-slide-left">
+                    <div className="uk-container">
+                        <div className="uk-grid uk-child-width-1-3@m uk-flex-middle uk-animation-slide-left-medium">
+                            <div>
+                                <PrevPage
+                                    onPrevClick={this.prevPage}
+                                    pagePrev={pagePrev}
+                                />
+                            </div>
+                            <div>
+                                <NextPage
+                                    onNextClick={this.nextPage}
+                                    pageNext={pageNext}
+                                />
+                            </div>
+                            {loadingSpinner}
+                        </div>
 
-                <PrevPage
-                    onPrevClick={this.prevPage}
-                    pagePrev={pagePrev}
-                />
-                <NextPage
-                    onNextClick={this.nextPage}
-                    pageNext={pageNext}
-                />
+                    </div>
+
+                </div>
+
             </div>
         )
 

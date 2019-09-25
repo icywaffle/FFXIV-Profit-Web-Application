@@ -25,6 +25,7 @@ yarn-error.log*
 
 #thousands of icons
 /public/icon
+/public/images
 
 #ignore mock keys
 etc

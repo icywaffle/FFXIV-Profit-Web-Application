@@ -2,18 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Search from './components/Search';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker'
+import Home from "./components/Home"
 
 function Index() {
-    return <h2>Home</h2>
+    return <Home />
 }
 
 function ItemSearch() {
     return <Search />
-}
-
-function Users() {
-    return <h2>Users</h2>
 }
 
 class AppRouter extends React.Component {
@@ -36,9 +33,6 @@ class AppRouter extends React.Component {
                                 </li>
                                 <li>
                                     <Link to="/search/">Search</Link>
-                                </li>
-                                <li>
-                                    <Link to="/users/">Users</Link>
                                 </li>
                             </ul>
                         </div>
@@ -68,7 +62,6 @@ class AppRouter extends React.Component {
                     <div>
                         <Route path="/" exact component={Index} />
                         <Route path="/search/" component={ItemSearch} />
-                        <Route path="/users/" component={Users} />
                     </div>
 
                 </div>

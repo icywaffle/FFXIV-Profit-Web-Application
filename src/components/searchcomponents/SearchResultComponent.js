@@ -34,8 +34,8 @@ function createList(props) {
 function SearchResultComponent(props) {
     const itemList = createList(props)
 
-    return (<div>
-        <div className="uk-section uk-section-muted uk-animation-slide-left">
+    return (
+        <div>
             <div className="uk-container uk-width-3-4 uk-float-right" uk-height-viewport="expand: true">
                 <div className="uk-accordion-content">
                     <ul className="uk-list" id="itemlist">
@@ -46,8 +46,7 @@ function SearchResultComponent(props) {
 
                 </div>
             </div>
-        </div>
-    </div>)
+        </div>)
 }
 
 export default SearchResultComponent
