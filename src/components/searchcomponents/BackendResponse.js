@@ -12,7 +12,7 @@ function MainRecipe(baseinfo) {
                             <img
                                 className="itemicon"
                                 alt="icon"
-                                src={"icon/0" + baseinfo.Recipes.IconID.toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IconID.toString() + ".png"}
+                                src={"/icon/0" + baseinfo.Recipes.IconID.toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IconID.toString() + ".png"}
                             />
                             {baseinfo.Recipes.Name}
                         </h4>
@@ -68,7 +68,7 @@ function MainMaterials(baseinfo, matinfo) {
                 <a className="uk-accordion-title" href="">
                     <img
                         className="itemicon"
-                        src={"icon/0" + baseinfo.Recipes.IngredientIconID[index].toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IngredientIconID[index].toString() + ".png"}
+                        src={"/icon/0" + baseinfo.Recipes.IngredientIconID[index].toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IngredientIconID[index].toString() + ".png"}
                     />
                     <span>{material}</span>
                     <span className="uk-text-meta">
