@@ -11,7 +11,7 @@ class PrevPage extends React.Component {
     render() {
         if (this.props.pagePrev != null) {
             return (<button
-                className="uk-button"
+                className="uk-button uk-button-default"
                 type="button"
                 onClick={this.handleClick}
             >
@@ -34,7 +34,7 @@ class NextPage extends React.Component {
         if (this.props.pageNext != null) {
             return (
                 <button
-                    className="uk-button"
+                    className="uk-button uk-button-default"
                     type="button"
                     onClick={this.handleClick}
                 >
@@ -207,8 +207,10 @@ class SearchForm extends React.Component {
             : this.state.searchData.Pagination.PagePrev
 
         return (
-            <div>
-                <div className="uk-section uk-background-secondary uk-animation-slide-left uk-light">
+            // We need to offset the top of the viewport according to the navbar.
+            <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light uk-height-viewport"
+                uk-height-viewport="offset-top: 200">
+                <div className="uk-container uk-padding-large uk-padding-remove-bottom">
                     <SearchFormComponent
                         handleFormEnter={this.handleFormEnter}
                         handleChange={this.handleChange}
@@ -216,31 +218,29 @@ class SearchForm extends React.Component {
                         {...this.state}
                     />
                 </div>
-                <div className="uk-section uk-background-muted uk-animation-slide-left">
+                <div className="uk-container uk-padding" >
                     {loadingSpinner}
                     {searchResults}
                 </div>
-                <div className="uk-section uk-background-muted uk-animation-slide-left">
-                    <div className="uk-container">
-                        <div className="uk-grid uk-child-width-1-3@m uk-flex-middle uk-animation-slide-left-medium">
-                            <div>
-                                <PrevPage
-                                    onPrevClick={this.prevPage}
-                                    pagePrev={pagePrev}
-                                />
-                            </div>
-                            <div>
-                                <NextPage
-                                    onNextClick={this.nextPage}
-                                    pageNext={pageNext}
-                                />
-                            </div>
-                            {loadingSpinner}
+                <div className="uk-container uk-padding">
+                    <div className="uk-grid uk-child-width-1-3@m uk-flex-middle uk-animation-slide-left-medium">
+                        <div>
+                            <PrevPage
+                                onPrevClick={this.prevPage}
+                                pagePrev={pagePrev}
+                            />
                         </div>
-
+                        <div>
+                            <NextPage
+                                onNextClick={this.nextPage}
+                                pageNext={pageNext}
+                            />
+                        </div>
+                        {loadingSpinner}
                     </div>
 
                 </div>
+
 
             </div>
         )

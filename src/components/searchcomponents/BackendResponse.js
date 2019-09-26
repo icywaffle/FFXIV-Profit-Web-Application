@@ -1,10 +1,9 @@
 import React from 'react'
-import '../../../node_modules/uikit/dist/css/uikit.css'
-import 'uikit'
+
 function MainRecipe(baseinfo) {
     return (
         <section>
-            <div className="uk-section uk-background-secondary uk-animation-slide-left uk-light">
+            <div className="uk-section uk-animation-slide-left">
                 <div className="uk-container">
                     <div className="uk-width-4-5 uk-float-right">
                         <h2>Analysis</h2>
@@ -70,12 +69,12 @@ function MainMaterials(baseinfo, matinfo) {
                         className="itemicon"
                         src={"/icon/0" + baseinfo.Recipes.IngredientIconID[index].toString().substr(0, 2) + "000/0" + baseinfo.Recipes.IngredientIconID[index].toString() + ".png"}
                     />
-                    <span>{material}</span>
+                    <span>{material} </span>
                     <span className="uk-text-meta">
-                        x{baseinfo.Recipes.IngredientAmounts[index]}</span>
-
+                        x{baseinfo.Recipes.IngredientAmounts[index]}
+                    </span>
                 </a>
-                <div className="uk-accordion-content" aria-hidden="true" hidden>
+                <div className="uk-accordion-content" >
                     {marketInfo}
                 </div>
             </li>

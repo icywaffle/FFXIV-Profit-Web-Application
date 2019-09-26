@@ -35,18 +35,14 @@ function SearchResultComponent(props) {
     const itemList = createList(props)
 
     return (
-        <div>
-            <div className="uk-container uk-width-3-4 uk-float-right" uk-height-viewport="expand: true">
-                <div className="uk-accordion-content">
-                    <ul className="uk-list" id="itemlist">
-                        {itemList}
-                    </ul>
-                </div>
-                <div>
 
-                </div>
-            </div>
-        </div>)
+        <div className="uk-accordion-content">
+            <ul className="uk-list" id="itemlist">
+                {itemList}
+            </ul>
+        </div>
+
+    )
 }
 
 export default SearchResultComponent

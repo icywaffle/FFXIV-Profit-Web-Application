@@ -25,8 +25,8 @@ class AppRouter extends React.Component {
         return (
             <Router>
                 <div>
-                    <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-light; top: 200">
-                        <nav className="uk-navbar-container uk-background-secondary uk-navbar">
+                    <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+                        <nav className="uk-navbar-container uk-background-default uk-navbar uk-dark">
                             <div className="uk-navbar-left">
                                 <ul className="uk-navbar-nav">
                                     <li>
@@ -62,10 +62,10 @@ class AppRouter extends React.Component {
                         </nav>
                     </div>
 
-                    <div>
-                        <Route path="/" exact component={Index} />
-                        <Route path="/search/" component={ItemSearch} />
-                    </div>
+                    <Route path="/" exact component={Index} />
+                    <Route path="/search/" component={ItemSearch} />
+
+
 
                 </div>
             </Router>
