@@ -33,7 +33,7 @@ class AppRouter extends React.Component {
                                         <Link to="/">Home</Link>
                                     </li>
                                     <li>
-                                        <Link to="/search/">Search</Link>
+                                        <a href="/search/">Search</a>
                                     </li>
                                 </ul>
                             </div>

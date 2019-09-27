@@ -185,7 +185,14 @@ class SearchForm extends React.Component {
 
         // Show the search results, unless we click an item
         const searchResults = this.state.itemClicked
-            ? (Object.entries(this.state.recipeData).length === 0 ? <div></div> : <BackendResponse recipeData={this.state.recipeData} />)
+            // If the backend data doesn't exist yet, show nothing
+            // Otherwise show the backend response
+            ? (Object.entries(this.state.recipeData).length === 0
+                ? <div></div>
+                : <BackendResponse
+                    recipeData={this.state.recipeData}
+                />
+            )
             : <div>
                 <SearchResultComponent
                     handleItemClick={this.handleItemClick}
