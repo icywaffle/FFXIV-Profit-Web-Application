@@ -2,10 +2,16 @@ import React from "react"
 
 function LoginComponent(props) {
     function Logout() {
-        sessionStorage.removeItem('key')
+        sessionStorage.removeItem("user")
+        window.location.href = "https://" + window.location.hostname
     }
-
-    if (props.userinfo.username) {
+    const logoutStyle = {
+        background: "none",
+        border: "none",
+        margin: 0,
+        padding: 0,
+    }
+    if (props.userinfo) {
         return (
             <li>
 
@@ -29,10 +35,14 @@ function LoginComponent(props) {
                         </li>
                         <li className="uk-nav-divider"></li>
                         <li>
-                            <a className="uk-text-danger">
+                            <button
+                                className="uk-button uk-button-default uk-text-danger uk-text-capitalize"
+                                onClick={Logout}
+                                style={logoutStyle}
+                            >
                                 {"Log Out "}
                                 <span data-uk-icon="icon: sign-out" className="uk-icon" />
-                            </a>
+                            </button>
                         </li>
                     </ul>
 

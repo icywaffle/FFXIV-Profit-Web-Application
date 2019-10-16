@@ -31,7 +31,6 @@ function Auth(props) {
         var url = "https://discordapp.com/api/oauth2/token"
         Payload.code = currentCode
         var encodedPayload = encodePayload()
-        console.log("fetched")
         fetch(url, {
             method: "POST",
 
@@ -41,7 +40,7 @@ function Auth(props) {
             body: encodedPayload,
         })
             .then(response => response.json())
-            // Once we get the data, we can access the User Info
+            // Once we get the data access_token , we can access the User Info
             .then(data => fetch('https://discordapp.com/api/users/@me', {
                 headers: {
                     authorization: `${data.token_type} ${data.access_token}`,
@@ -51,12 +50,13 @@ function Auth(props) {
                 .then(userdata => {
                     sessionStorage.setItem("user", JSON.stringify(userdata))
                     setLogin(sessionStorage.getItem("user"))
+                    // Once we're done getting data, move the user off of the query string.
+                    window.location.href = "https://" + window.location.hostname
                 })
             )
-
     }
 
-    console.log(currentCode)
+
     // Only want to do this once, and we only want to do it if we made a request with a code query
     useEffect(() => {
         if (currentCode !== "") {
@@ -64,7 +64,6 @@ function Auth(props) {
         }
     }, [])
 
-    console.log(login)
     return (
         <LoginComponent userinfo={JSON.parse(login)} />
     )

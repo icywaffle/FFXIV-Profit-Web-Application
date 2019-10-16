@@ -15,13 +15,18 @@ function ItemSearch() {
 }
 
 class AppRouter extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            login: false,
-        }
-    }
+    loadingUser() {
+        return (
+            <div className="uk-container uk-container-expand">
+                <div className="uk-position-center">
+                    Logging you in...
+                </div>
+                <div className="uk-position-center" uk-spinner="ratio: 10">
 
+                </div>
+            </div>
+        )
+    }
     render() {
         return (
             <Router>
@@ -67,7 +72,8 @@ class AppRouter extends React.Component {
                         </nav>
                     </div>
 
-                    <Route path="/(|user)/" exact component={Index} />
+                    <Route path="/" exact component={Index} />
+                    <Route path="/user" render={this.loadingUser} />
                     <Route path="/search/" component={ItemSearch} />
 
 
