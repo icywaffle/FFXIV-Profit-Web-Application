@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Search from './components/Search';
 import * as serviceWorker from './serviceWorker'
 import Home from "./components/Home"
+import OAuth2 from "./components/OAuth2"
 
 function Index() {
     return <Home />
@@ -17,7 +18,7 @@ class AppRouter extends React.Component {
     constructor() {
         super()
         this.state = {
-
+            login: false,
         }
     }
 
@@ -25,9 +26,12 @@ class AppRouter extends React.Component {
         return (
             <Router>
                 <div>
-                    <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+                    <div
+                        uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200"
+                    >
                         <nav className="uk-navbar-container uk-background-default uk-navbar uk-dark">
-                            <div className="uk-navbar-left">
+
+                            <div className="uk-navbar-left uk-container uk-container-expand">
                                 <ul className="uk-navbar-nav">
                                     <li>
                                         <Link to="/">Home</Link>
@@ -37,7 +41,7 @@ class AppRouter extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="uk-navbar-right">
+                            <div className="uk-navbar-right uk-container uk-container-expand">
                                 <ul className="uk-navbar-nav">
                                     <li>
                                         <a
@@ -57,18 +61,19 @@ class AppRouter extends React.Component {
                                             uk-icon="icon: github-alt">
                                         </a>
                                     </li>
+                                    <Route path="/*" render={querycode => <OAuth2 code={querycode} />} />
                                 </ul>
                             </div>
                         </nav>
                     </div>
 
-                    <Route path="/" exact component={Index} />
+                    <Route path="/(|user)/" exact component={Index} />
                     <Route path="/search/" component={ItemSearch} />
 
 
 
                 </div>
-            </Router>
+            </Router >
 
 
         )

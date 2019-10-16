@@ -29,3 +29,7 @@ yarn-error.log*
 
 #ignore mock keys
 etc
+
+
+#ignore Sensitive OAuth
+src/components/OauthComponents/authkeys.js
