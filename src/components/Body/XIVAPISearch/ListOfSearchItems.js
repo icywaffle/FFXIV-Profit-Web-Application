@@ -13,7 +13,7 @@ function ListOfSearchItems(props) {
         return (
             <li key={item.ID}>
 
-                <div className="uk-position-center uk-position-relative">
+                <div className="uk-flex uk-flex-center">
                     <img
                         src={"/icon/" + item.Icon.substr(3)}
                         alt="Icon"
@@ -28,12 +28,10 @@ function ListOfSearchItems(props) {
     })
 
     return (
-        <div className="uk-container uk-grid uk-flex-around uk-background-secondary uk-padding-large">
-            <div className="uk-overflow-auto uk-height-medium uk-width-expand uk-padding">
-                <ul className="uk-list">
-                    {listItems}
-                </ul>
-            </div>
+        <div className="uk-container uk-background-secondary uk-padding-large">
+            <ul className="uk-list">
+                {listItems}
+            </ul>
 
         </div>
     )
