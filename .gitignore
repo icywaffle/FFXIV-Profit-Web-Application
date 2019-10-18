@@ -31,5 +31,5 @@ yarn-error.log*
 etc
 
 
-#ignore Sensitive OAuth
-src/components/OauthComponents/authkeys.js
+#ignore auth keys
+src/authkeys/*

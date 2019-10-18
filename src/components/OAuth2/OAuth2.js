@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Payload from './authkeys'
-import LoginComponent from './LoginComponent';
-
-function Auth(props) {
+import OAuth2Payload from 'authkeys/discord.js'
+import Login from "./Login"
+function OAuth2(props) {
     // Sample Payload
     /*
         client_id: "",
@@ -13,13 +12,13 @@ function Auth(props) {
         scope: "identify",
     */
     const [currentCode] = useState(props.code.location.search.slice(6))
-    const [login, setLogin] = useState(sessionStorage.getItem("user"))
+    const [login, setLogin] = useState(localStorage.getItem("user"))
     // For urlencoded forms, we need to manually change our payload
     function encodePayload() {
         var formBody = [];
-        for (var property in Payload) {
+        for (var property in OAuth2Payload) {
             var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(Payload[property])
+            var encodedValue = encodeURIComponent(OAuth2Payload[property])
             formBody.push(encodedKey + "=" + encodedValue)
         }
         formBody = formBody.join("&")
@@ -27,9 +26,10 @@ function Auth(props) {
         return formBody
     }
 
+    // Requests for an access token, so we can access user's info
     function RequestAccessToken() {
         var url = "https://discordapp.com/api/oauth2/token"
-        Payload.code = currentCode
+        OAuth2Payload.code = currentCode
         var encodedPayload = encodePayload()
         fetch(url, {
             method: "POST",
@@ -40,7 +40,8 @@ function Auth(props) {
             body: encodedPayload,
         })
             .then(response => response.json())
-            // Once we get the data access_token , we can access the User Info
+
+            // Once we get the data access_token , we can access the User Info and store it in session
             .then(data => fetch('https://discordapp.com/api/users/@me', {
                 headers: {
                     authorization: `${data.token_type} ${data.access_token}`,
@@ -48,8 +49,8 @@ function Auth(props) {
             })
                 .then(response => response.json())
                 .then(userdata => {
-                    sessionStorage.setItem("user", JSON.stringify(userdata))
-                    setLogin(sessionStorage.getItem("user"))
+                    localStorage.setItem("user", JSON.stringify(userdata))
+                    setLogin(localStorage.getItem("user"))
                     // Once we're done getting data, move the user off of the query string.
                     window.location.href = "https://" + window.location.hostname
                 })
@@ -57,7 +58,7 @@ function Auth(props) {
     }
 
 
-    // Only want to do this once, and we only want to do it if we made a request with a code query
+    // Only want to request once, and we only want to do it if we made a request with a code query
     useEffect(() => {
         if (currentCode !== "") {
             RequestAccessToken()
@@ -65,11 +66,8 @@ function Auth(props) {
     }, [])
 
     return (
-        <LoginComponent userinfo={JSON.parse(login)} />
+        <Login userinfo={JSON.parse(login)} />
     )
 
-
 }
-
-
-export default Auth
+export default OAuth2

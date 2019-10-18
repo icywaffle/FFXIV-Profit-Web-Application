@@ -1,13 +1,14 @@
-import React from 'react'
-function createList(props) {
+import React from "react"
+// Creates a list of items, given the correct props with searchData
+// Will link to the Backend Response given a correct handleItemClick
+function ListOfSearchItems(props) {
     const spacer = " "
 
     // We need to protect this function in the case that there are no prop data
     // Props data only gets filled when we actually search for something
-    if (Object.entries(props.searchData).length === 0) {
-        return []
+    if (props === null || props.searchData === null) {
+        return null
     }
-
     // If we have data, then we can actually create the entire list
     const listItems = props.searchData.Results.map((item) => {
         return (
@@ -23,26 +24,13 @@ function createList(props) {
                 </button>
             </li>
         )
-
-
     })
-    return listItems
-}
-
-
-
-function SearchResultComponent(props) {
-    const itemList = createList(props)
 
     return (
-
-        <div className="uk-accordion-content">
-            <ul className="uk-list" id="itemlist">
-                {itemList}
-            </ul>
+        <div className="uk-container uk-padding-large uk-padding-remove-bottom">
+            {listItems}
         </div>
-
     )
 }
 
-export default SearchResultComponent
+export default ListOfSearchItems
