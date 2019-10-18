@@ -16,16 +16,24 @@ function MaterialRecipeComponent(props) {
         const marketInfo = (matinfo.Prices[ingredientID] === undefined)
             ? ""
             : (<ul className="uk-list">
-                <li>
-                    Lowest Market Price :
-                        <span className="pricenumber">{matinfo.Prices[ingredientID].LowestMarketPrice}</span>
-                </li>
-                <li>
-                    On Marketboard : {matinfo.Prices[ingredientID].OnMarketboard}
-                </li>
-                <li>
-                    Added : <span className="datetime">{matinfo.Prices[ingredientID].Added}</span>
-                </li>
+                <form onSubmit={props.handleSubmit}>
+                    <input
+                        type="text"
+                        name={"MarketIngredientPrice"}
+                        value={props.MarketIngredientPrice[index]}
+                        index={index}
+                        placeholder="Current Market Price"
+                        onChange={props.handleIngredientPriceChange}
+                    />
+                    <input
+                        type="text"
+                        name={"MarketAmount"}
+                        value={props.MarketAmount[index]}
+                        index={index}
+                        placeholder="Current Market Price"
+                        onChange={props.handleAmountChange}
+                    />
+                </form>
             </ul>
             )
 

@@ -18,19 +18,15 @@ function MainRecipeComponent(props) {
                             />
                             <span> {baseinfo.Recipes.Name}</span>
                         </h4>
-                        <ul className="uk-list">
-                            <li>On Market: {baseinfo.Prices.OnMarketboard.toString()}</li>
-                            <li>Marketboard Price: <span className=" pricenumber">{baseinfo.Prices.LowestMarketPrice}</span>
-                            </li>
-                            <li>
-                                Material Costs: <span className="pricenumber">{baseinfo.Profits.MaterialCosts}</span>
-                            </li>
-                            <li>
-                                Profits: <span className="pricenumber">{baseinfo.Profits.Profits}</span>
-                            </li>
-                            <li>Profit Percentage: {baseinfo.Profits.ProfitPercentage}%</li>
-                            <li className="datetime" value="{baseinfo.Profits.Added}"> </li>
-                        </ul>
+                        <form onSubmit={props.handleSubmit}>
+                            <input
+                                type="text"
+                                name="MarketItemPrice"
+                                value={props.MarketItemPrice}
+                                placeholder="Current Market Price"
+                                onChange={props.handleItemPriceChange}
+                            />
+                        </form>
                     </div>
                 </div>
             </div>
