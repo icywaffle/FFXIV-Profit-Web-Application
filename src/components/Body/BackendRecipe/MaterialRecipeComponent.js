@@ -16,15 +16,22 @@ function MaterialRecipeComponent(props) {
         const marketInfo = (matinfo.Prices[ingredientID] === undefined)
             ? ""
             : (<ul className="uk-list">
-                <form onSubmit={props.handleSubmit}>
+                <form
+                    className="uk-form-width-small"
+                    onSubmit={props.handleSubmit}
+                >
+                    Market Price:
                     <input
+                        className="uk-input"
                         type="text"
                         name={index}
                         value={props.MarketIngredientPrice[index]}
                         placeholder="Current Market Price"
                         onChange={props.handleIngredientPriceChange}
                     />
+                    Market Amount:
                     <input
+                        className="uk-input"
                         type="text"
                         name={index}
                         value={props.MarketAmount[index]}

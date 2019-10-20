@@ -7,8 +7,8 @@ function BackendRecipe(props) {
     const [MarketItemPrice, setMarketItemPrice] = useState(0)
     const [MarketIngredientPrice, setMarketIngredientPrice] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     const [MarketAmount, setMarketAmount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-
-    // We only try to obtain data from the backend ONCE, so it auto fills our forms
+    const [Profit, setProfit] = useState(0)
+    // We only try to obtain data each time we get a new recipe
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("user")) && props.recipeData) {
             const UserID = JSON.parse(localStorage.getItem("user")).id
@@ -23,6 +23,18 @@ function BackendRecipe(props) {
                 })
         }
     }, [props.recipeData])
+
+    // We want to set profit any time we change our prices
+    useEffect(() => {
+        if (props.recipeData) {
+            var totalSum = 0
+            for (var i = 0; i < MarketIngredientPrice.length; i++) {
+                totalSum += MarketIngredientPrice[i] * props.recipeData.MainRecipe.Recipes.IngredientAmounts[i]
+            }
+            setProfit(MarketItemPrice - totalSum)
+        }
+
+    }, [MarketItemPrice, MarketIngredientPrice])
 
     function handleIngredientPriceChange(event) {
         const { name, value } = event.target
@@ -46,6 +58,7 @@ function BackendRecipe(props) {
     function onSubmit(event) {
         event.preventDefault()
     }
+
     function backendPOST() {
         // We need to login first before we can access the forms.
         if (!JSON.parse(localStorage.getItem("user"))) {
@@ -83,6 +96,7 @@ function BackendRecipe(props) {
                 onSubmit={onSubmit}
                 MarketItemPrice={MarketItemPrice}
                 handleItemPriceChange={handleItemPriceChange}
+                Profit={Profit}
             />
             <MaterialRecipeComponent
                 baseinfo={props.recipeData.MainRecipe}

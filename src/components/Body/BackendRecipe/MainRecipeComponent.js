@@ -18,8 +18,13 @@ function MainRecipeComponent(props) {
                             />
                             <span> {baseinfo.Recipes.Name}</span>
                         </h4>
-                        <form onSubmit={props.handleSubmit}>
+                        <form
+                            className="uk-form-width-small"
+                            onSubmit={props.handleSubmit}
+                        >
+                            Market Price:
                             <input
+                                className="uk-input"
                                 type="text"
                                 name="MarketItemPrice"
                                 value={props.MarketItemPrice}
@@ -27,6 +32,7 @@ function MainRecipeComponent(props) {
                                 onChange={props.handleItemPriceChange}
                             />
                         </form>
+                        <p>Profit: {props.Profit}</p>
                     </div>
                 </div>
             </div>
