@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MainRecipeComponent from './MainRecipeComponent'
 import MaterialRecipeComponent from './MaterialRecipeComponent'
 import Loading from "components/Body/Loading"
@@ -8,18 +8,38 @@ function BackendRecipe(props) {
     const [MarketIngredientPrice, setMarketIngredientPrice] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     const [MarketAmount, setMarketAmount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
+    // We only try to obtain data from the backend ONCE, so it auto fills our forms
+    useEffect(() => {
+        if (JSON.parse(localStorage.getItem("user")) && props.recipeData) {
+            const UserID = JSON.parse(localStorage.getItem("user")).id
+            const RecipeID = props.recipeData.MainRecipe.Recipes.ID
+            var url = "https://" + window.location.hostname + "/userinfo/" + UserID + "/recipe/" + RecipeID
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    setMarketItemPrice(data.UserPrice.MarketItemPrice)
+                    setMarketIngredientPrice(data.UserPrice.MarketIngredientPrice)
+                    setMarketAmount(data.UserPrice.MarketAmount)
+                })
+        }
+    }, [props.recipeData])
+
     function handleIngredientPriceChange(event) {
-        const { index, value } = event.target
-        setMarketIngredientPrice(prevArray => prevArray[index] = value)
+        const { name, value } = event.target
+        let newCopy = [...MarketIngredientPrice]
+        newCopy[parseInt(name)] = parseInt(value)
+        setMarketIngredientPrice(newCopy)
     }
 
     function handleAmountChange(event) {
-        const { index, value } = event.target
-        setMarketAmount(prevArray => prevArray[index] = value)
+        const { name, value } = event.target
+        let newCopy = [...MarketAmount]
+        newCopy[parseInt(name)] = parseInt(value)
+        setMarketAmount(newCopy)
     }
     function handleItemPriceChange(event) {
         const { value } = event.target
-        setMarketItemPrice(value)
+        setMarketItemPrice(parseInt(value))
     }
 
     // Do nothing on enter
@@ -28,7 +48,9 @@ function BackendRecipe(props) {
     }
     function backendPOST() {
         // We need to login first before we can access the forms.
-        console.log(props.recipeData)
+        if (!JSON.parse(localStorage.getItem("user"))) {
+            return
+        }
         const UserID = JSON.parse(localStorage.getItem("user")).id
         const RecipeID = props.recipeData.MainRecipe.Recipes.ID
         const payload = {
@@ -44,9 +66,10 @@ function BackendRecipe(props) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: payload,
+            body: JSON.stringify(payload),
         })
     }
+
     if (props === null) {
         return null
     }

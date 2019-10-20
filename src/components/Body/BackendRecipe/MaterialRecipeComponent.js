@@ -19,17 +19,15 @@ function MaterialRecipeComponent(props) {
                 <form onSubmit={props.handleSubmit}>
                     <input
                         type="text"
-                        name={"MarketIngredientPrice"}
+                        name={index}
                         value={props.MarketIngredientPrice[index]}
-                        index={index}
                         placeholder="Current Market Price"
                         onChange={props.handleIngredientPriceChange}
                     />
                     <input
                         type="text"
-                        name={"MarketAmount"}
+                        name={index}
                         value={props.MarketAmount[index]}
-                        index={index}
                         placeholder="Current Market Price"
                         onChange={props.handleAmountChange}
                     />
