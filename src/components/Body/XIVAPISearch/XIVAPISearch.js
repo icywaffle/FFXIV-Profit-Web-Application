@@ -94,16 +94,30 @@ function XIVAPISearch() {
         setRecipeData(null)
     }
 
-    return (
-        // We need to offset for the navbar
-        <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light"
-            uk-height-viewport="expand: true"
-        >
-            <SearchFormComponent handleFormEnter={handleFormEnter} itemName={itemName} handleChangeItemName={handleChangeItemName} handleClick={handleClick} />
-            <APIReponse loading={loading} incrementPage={incrementPage} decrementPage={decrementPage} searchData={searchData} handleItemClick={handleItemClick} />
-            <BackendRecipe loading={loading} recipeData={recipeData} />
-        </div>
-    )
+    // Only show API Response if we haven't found anything.
+    // If we did find something, then we can just switch
+    if (recipeData === null) {
+        return (
+            <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light"
+                uk-height-viewport="expand: true"
+            >
+                <SearchFormComponent handleFormEnter={handleFormEnter} itemName={itemName} handleChangeItemName={handleChangeItemName} handleClick={handleClick} />
+                <APIReponse loading={loading} incrementPage={incrementPage} decrementPage={decrementPage} searchData={searchData} handleItemClick={handleItemClick} />
+            </div>
+
+        )
+    } else {
+        return (
+            <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light"
+                uk-height-viewport="expand: true"
+            >
+                <SearchFormComponent handleFormEnter={handleFormEnter} itemName={itemName} handleChangeItemName={handleChangeItemName} handleClick={handleClick} />
+                <BackendRecipe loading={loading} MainRecipe={recipeData.MainRecipe.Recipes} InnerRecipes={recipeData.InnerRecipes.Recipes} />
+            </div>
+
+        )
+    }
+
 
 }
 export default XIVAPISearch

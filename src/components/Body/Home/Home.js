@@ -98,13 +98,13 @@ function Home() {
                         <ButtonDetailComponent
                             Image={<img src="/images/github-octocat.svg" width="200px" height="200px"></img>}
                             Link="https://github.com/icywaffle/marketboard-frontend"
-                            Title="Frontend"
+                            Title="Front-End"
                             Detail="Front-end dockerized code, suited up with an NGINX config file to be built into a Docker Image"
                         />
                         <ButtonDetailComponent
                             Image={<img src="/images/github-icon.svg" width="200px" height="200px"></img>}
                             Link="https://github.com/icywaffle/marketboard-backend"
-                            Title="Frontend"
+                            Title="Back-End"
                             Detail="Back-end dockerized code, using the Revel framework, ready to be built into a Docker Image"
                         />
                     </div>
