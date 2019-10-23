@@ -130,24 +130,6 @@ function BackendRecipe(props) {
         })
     }
 
-    function displaySubmitPrices() {
-        if (!JSON.parse(localStorage.getItem("user"))) {
-            return null
-        } else {
-            return (
-                <div>
-                    <Confirmation submitted={submitted} />
-                    <button
-                        className="uk-button uk-button-default"
-                        onClick={backendPOST}
-                    >
-                        Submit Prices
-                </button>
-                </div>
-            )
-        }
-    }
-
     if (props === null) {
         return null
     }
@@ -174,9 +156,15 @@ function BackendRecipe(props) {
                 handleAmountChange={handleAmountChange}
                 onSubmit={onSubmit}
             />
-            {displaySubmitPrices}
-
-
+            <div>
+                <Confirmation submitted={submitted} />
+                <button
+                    className="uk-button uk-button-default"
+                    onClick={backendPOST}
+                >
+                    Submit Prices
+                </button>
+            </div>
         </div>)
     }
 
