@@ -8,10 +8,15 @@ import Confirmation from "./Confirmation"
 // Returns all information about that main recipe.
 // Recursively calls for the inner recipes if they have recipes.
 function BackendRecipe(props) {
+
+    const [Profits, setProfits] = useState(0)
+    const [ProfitPercentage, setProfitPercentage] = useState(0)
     const [MarketItemPrice, setMarketItemPrice] = useState(0)
+    const [MarketAmount, setMarketAmount] = useState(0)
+
     const [MarketIngredientPrice, setMarketIngredientPrice] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    const [MarketAmount, setMarketAmount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    const [Profit, setProfit] = useState(0)
+    const [MarketIngredientAmount, setMarketIngredientAmount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
     const [MaterialCosts, setMaterialCosts] = useState(0)
     const [submitted, setSubmitted] = useState(false)
 
@@ -25,44 +30,67 @@ function BackendRecipe(props) {
                 .then(response => response.json())
                 .then(data => {
                     // Only set if we have a response. If we don't , then return defaults
-                    if (data.UserPrice !== null) {
-                        setMarketItemPrice(data.UserPrice.MarketItemPrice)
-                        setMarketIngredientPrice(data.UserPrice.MarketIngredientPrice)
-                        setMarketAmount(data.UserPrice.MarketAmount)
+                    console.log(data)
+                    if (data.UserPrices !== undefined) {
+                        // Main Item Data
+                        if (data.UserPrices[props.MainRecipe.ItemResultTargetID] !== undefined) {
+                            setMarketItemPrice(data.UserPrices[props.MainRecipe.ItemResultTargetID].MarketItemPrice)
+                            setMarketAmount(data.UserPrices[props.MainRecipe.ItemResultTargetID].MarketAmount)
+                        }
+                        // Ingredient Data
+                        const newMarketIngredientPrice = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        const newMarketIngredientAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        for (var i = 0; i < props.MainRecipe.IngredientID.length; i++) {
+                            if (props.MainRecipe.IngredientID[i] !== 0) {
+                                const Price = data.UserPrices[props.MainRecipe.IngredientID[i]]
+                                if (Price !== undefined) {
+                                    newMarketIngredientPrice[i] = Price.MarketItemPrice
+                                    newMarketIngredientAmount[i] = Price.MarketAmount
+                                }
+
+                            }
+                        }
+                        setMarketIngredientPrice(newMarketIngredientPrice)
+                        setMarketIngredientAmount(newMarketIngredientAmount)
                     }
                 })
         }
-    }, [props])
+    }, [])
 
-    // We want to set profit any time we change our prices
+    // We want to set Profits any time we change our prices
     useEffect(() => {
         if (props) {
             var totalSum = 0
             for (var i = 0; i < MarketIngredientPrice.length; i++) {
                 totalSum += MarketIngredientPrice[i] * props.MainRecipe.IngredientAmounts[i]
             }
-            setProfit(MarketItemPrice - totalSum)
+            setProfits(MarketItemPrice - totalSum)
             setMaterialCosts(totalSum)
+            var tempPercentage = ((MarketItemPrice - totalSum) / totalSum) * 100
+            setProfitPercentage(parseInt(tempPercentage))
         }
 
     }, [MarketItemPrice, MarketIngredientPrice])
 
     function handleIngredientPriceChange(event) {
-        const { name, value } = event.target
+        const { name } = event.target
+        const value = parseInt(event.target.value) || 0
         let newCopy = [...MarketIngredientPrice]
-        newCopy[parseInt(name)] = parseInt(value)
+        newCopy[parseInt(name)] = value
         setMarketIngredientPrice(newCopy)
     }
 
     function handleAmountChange(event) {
-        const { name, value } = event.target
-        let newCopy = [...MarketAmount]
-        newCopy[parseInt(name)] = parseInt(value)
-        setMarketAmount(newCopy)
+        const { name } = event.target
+        const value = parseInt(event.target.value) || 0
+        let newCopy = [...MarketIngredientAmount]
+        newCopy[parseInt(name)] = value
+        setMarketIngredientAmount(newCopy)
     }
     function handleItemPriceChange(event) {
-        const { value } = event.target
-        setMarketItemPrice(parseInt(value))
+        const value = parseInt(event.target.value) || 0
+
+        setMarketItemPrice(value)
     }
 
     // Do nothing on enter
@@ -78,12 +106,20 @@ function BackendRecipe(props) {
         setSubmitted(true)
         const UserID = JSON.parse(localStorage.getItem("user")).id
         const RecipeID = props.MainRecipe.ID
+        const ItemID = props.MainRecipe.ItemResultTargetID
+        const IngredientItemID = props.MainRecipe.IngredientID
         const payload = {
             UserID: UserID,
             RecipeID: RecipeID,
+            ItemID: ItemID,
+            Profits: Profits,
+            ProfitPercentage: ProfitPercentage,
             MarketItemPrice: MarketItemPrice,
-            MarketIngredientPrice: MarketIngredientPrice,
             MarketAmount: MarketAmount,
+
+            IngredientItemID: IngredientItemID,
+            MarketIngredientPrice: MarketIngredientPrice,
+            MarketIngredientAmount: MarketIngredientAmount,
         }
         var url = "https://" + window.location.hostname + "/userinfo/" + UserID
         fetch(url, {
@@ -93,6 +129,24 @@ function BackendRecipe(props) {
             },
             body: JSON.stringify(payload),
         })
+    }
+
+    function displaySubmitPrices() {
+        if (!JSON.parse(localStorage.getItem("user"))) {
+            return null
+        } else {
+            return (
+                <div>
+                    <Confirmation submitted={submitted} />
+                    <button
+                        className="uk-button uk-button-default"
+                        onClick={backendPOST}
+                    >
+                        Submit Prices
+                </button>
+                </div>
+            )
+        }
     }
 
     if (props === null) {
@@ -108,28 +162,21 @@ function BackendRecipe(props) {
                 onSubmit={onSubmit}
                 MarketItemPrice={MarketItemPrice}
                 handleItemPriceChange={handleItemPriceChange}
-                Profit={Profit}
+                Profits={Profits}
+                ProfitPercentage={ProfitPercentage}
                 MaterialCosts={MaterialCosts}
             />
             <MaterialRecipeComponent
                 baserecipe={props.MainRecipe}
                 matinfo={props.InnerRecipes}
-                MarketAmount={MarketAmount}
+                MarketIngredientAmount={MarketIngredientAmount}
                 MarketIngredientPrice={MarketIngredientPrice}
                 handleIngredientPriceChange={handleIngredientPriceChange}
                 handleAmountChange={handleAmountChange}
                 onSubmit={onSubmit}
             />
+            {displaySubmitPrices}
 
-            <div>
-                <Confirmation submitted={submitted} />
-                <button
-                    className="uk-button uk-button-default"
-                    onClick={backendPOST}
-                >
-                    Submit Prices
-            </button>
-            </div>
 
         </div>)
     }

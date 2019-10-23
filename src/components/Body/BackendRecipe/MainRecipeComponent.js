@@ -4,7 +4,6 @@ import React from "react"
 // Returns the main recipe's info
 function MainRecipeComponent(props) {
     const baserecipe = props.baserecipe
-    console.log(baserecipe)
     return (
         <div className="uk-section uk-padding-small">
             <div className="uk-container">
@@ -33,7 +32,8 @@ function MainRecipeComponent(props) {
                     </form>
                     <ul className="uk-list">
                         <li>Material Costs: {props.MaterialCosts}</li>
-                        <li>Bought All Materials Profit: {props.Profit}</li>
+                        <li>Bought All Materials Profit: {props.Profits}</li>
+                        <li>Bought All Materials Profit Percentage: {props.ProfitPercentage}%</li>
                     </ul>
                 </div>
             </div>

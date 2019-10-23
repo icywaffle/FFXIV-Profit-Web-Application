@@ -14,45 +14,47 @@ function MaterialRecipeComponent(props) {
         const materialRecipe = (matrecipe[index] === null)
             ? null
             : <div>
-                <ul className="uk-list">
+                <ul uk-accordion="multiple: true">
                     <li>
-                        <h3>Crafted Material Info</h3>
-                    </li>
-                    <li>
-                        <BackendRecipe MainRecipe={matinfo[matrecipe[index][0]]} InnerRecipes={matinfo} />
+                        <a class="uk-accordion-title" href="#">Craftable</a>
+                        <div className="uk-accordion-content">
+                            <BackendRecipe MainRecipe={matinfo[matrecipe[index][0]]} InnerRecipes={matinfo} />
+                        </div>
                     </li>
                 </ul>
-
-
             </div>
 
         const marketInfo = (matinfo === undefined)
             ? null
             : (<ul className="uk-list">
-                <form
-                    className="uk-form-width-small"
-                    onSubmit={props.handleSubmit}
-                >
-                    Market Price:
+                <li>
+                    <form
+                        className="uk-form-width-small"
+                        onSubmit={props.handleSubmit}
+                    >
+                        Market Price:
                     <input
-                        className="uk-input"
-                        type="text"
-                        name={index}
-                        value={props.MarketIngredientPrice[index]}
-                        placeholder="Current Market Price"
-                        onChange={props.handleIngredientPriceChange}
-                    />
-                    Market Amount:
+                            className="uk-input"
+                            type="text"
+                            name={index}
+                            value={props.MarketIngredientPrice[index]}
+                            placeholder="Current Market Price"
+                            onChange={props.handleIngredientPriceChange}
+                        />
+                        Market Amount:
                     <input
-                        className="uk-input"
-                        type="text"
-                        name={index}
-                        value={props.MarketAmount[index]}
-                        placeholder="Current Market Price"
-                        onChange={props.handleAmountChange}
-                    />
-                </form>
-                {materialRecipe}
+                            className="uk-input"
+                            type="text"
+                            name={index}
+                            value={props.MarketIngredientAmount[index]}
+                            placeholder="Current Market Price"
+                            onChange={props.handleAmountChange}
+                        />
+                    </form>
+                </li>
+                <li>
+                    {materialRecipe}
+                </li>
             </ul>
             )
 
