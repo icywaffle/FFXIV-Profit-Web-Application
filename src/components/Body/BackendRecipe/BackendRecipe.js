@@ -30,7 +30,6 @@ function BackendRecipe(props) {
                 .then(response => response.json())
                 .then(data => {
                     // Only set if we have a response. If we don't , then return defaults
-                    console.log(data)
                     if (data.UserPrices !== undefined) {
                         // Main Item Data
                         if (data.UserPrices[props.MainRecipe.ItemResultTargetID] !== undefined) {
