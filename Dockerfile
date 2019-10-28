@@ -1,5 +1,4 @@
 # We need node to build the app on the docker container.
-# NAME THE GOD DAMN THING SO THAT WE CAN USE IT IN STAGE 2
 FROM node:alpine as build
 
 RUN apk add --update nodejs npm

@@ -54,7 +54,7 @@ function XIVAPISearch() {
 
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     function backendSearch(recipeID) {
-        const url = "https://" + window.location.hostname + "/recipe/" + recipeID
+        const url = "https://" + window.location.hostname + "/api/recipe/" + recipeID
         fetch(url)
             .then(response => response.json())
             .then(data => {

@@ -25,7 +25,7 @@ function BackendRecipe(props) {
         if (JSON.parse(localStorage.getItem("user")) && props) {
             const UserID = JSON.parse(localStorage.getItem("user")).id
             const RecipeID = props.MainRecipe.ID
-            var url = "https://" + window.location.hostname + "/userinfo/" + UserID + "/recipe/" + RecipeID
+            var url = "https://" + window.location.hostname + "/api/userinfo/" + UserID + "/recipe/" + RecipeID
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
