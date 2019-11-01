@@ -42,19 +42,34 @@ function OAuth2(props) {
             .then(response => response.json())
 
             // Once we get the data access_token , we can access the User Info and store it in session
-            .then(data => fetch('https://discordapp.com/api/users/@me', {
-                headers: {
-                    authorization: `${data.token_type} ${data.access_token}`,
-                },
-            })
-                .then(response => response.json())
-                .then(userdata => {
-                    localStorage.setItem("user", JSON.stringify(userdata))
-                    setLogin(localStorage.getItem("user"))
-                    // Once we're done getting data, move the user off of the query string.
-                    window.location.href = "https://" + window.location.hostname
+            .then(data => {
+                localStorage.setItem("AccessToken", data.access_token)
+                const payload = {
+                    AccessToken: data.access_token,
+                }
+                // We also need to log into the API, since our token will expire
+                fetch("https://" + window.location.hostname + "/api/userinfo/login/", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload),
                 })
-            )
+                fetch('https://discordapp.com/api/users/@me', {
+                    headers: {
+                        authorization: `${data.token_type} ${data.access_token}`,
+                    },
+                })
+                    .then(response => response.json())
+                    .then(userdata => {
+                        localStorage.setItem("user", JSON.stringify(userdata))
+                        setLogin(localStorage.getItem("user"))
+
+                        // Once we're done getting data, move the user off of the query string.
+                        window.location.href = "https://" + window.location.hostname
+                    })
+            })
+
     }
 
 

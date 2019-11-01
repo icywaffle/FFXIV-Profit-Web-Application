@@ -4,6 +4,7 @@ import LogoutComponent from "./LogoutComponent"
 function Login(props) {
     function Logout() {
         localStorage.removeItem("user")
+        localStorage.removeItem("AccessToken")
         window.location.href = "https://" + window.location.hostname
     }
 

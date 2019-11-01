@@ -23,9 +23,8 @@ function BackendRecipe(props) {
     // We only try to obtain data each time we get a new recipe
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("user")) && props) {
-            const UserID = JSON.parse(localStorage.getItem("user")).id
             const RecipeID = props.MainRecipe.ID
-            var url = "https://" + window.location.hostname + "/api/userinfo/" + UserID + "/recipe/" + RecipeID
+            var url = "https://" + window.location.hostname + "/api/userinfo/recipe/" + RecipeID
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -103,12 +102,10 @@ function BackendRecipe(props) {
             return
         }
         setSubmitted(true)
-        const UserID = JSON.parse(localStorage.getItem("user")).id
         const RecipeID = props.MainRecipe.ID
         const ItemID = props.MainRecipe.ItemResultTargetID
         const IngredientItemID = props.MainRecipe.IngredientID
         const payload = {
-            UserID: UserID,
             RecipeID: RecipeID,
             ItemID: ItemID,
             Profits: Profits,
@@ -120,7 +117,7 @@ function BackendRecipe(props) {
             MarketIngredientPrice: MarketIngredientPrice,
             MarketIngredientAmount: MarketIngredientAmount,
         }
-        var url = "https://" + window.location.hostname + "/userinfo/" + UserID
+        var url = "https://" + window.location.hostname + "/userinfo/"
         fetch(url, {
             method: "POST",
             headers: {

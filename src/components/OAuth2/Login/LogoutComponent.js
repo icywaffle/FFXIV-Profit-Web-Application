@@ -7,7 +7,9 @@ function LogoutComponent(props) {
         margin: 0,
         padding: 0,
     }
-
+    function consoleTest() {
+        console.log(localStorage.getItem("AccessToken"))
+    }
     return (
         <li>
             <a>
@@ -29,6 +31,14 @@ function LogoutComponent(props) {
                         <span className="uk-text-secondary">#{props.userinfo.discriminator}</span>
                     </li>
                     <li className="uk-nav-divider"></li>
+                    <li>
+                        <button
+                            className="uk-button uk-button-default uk-text-danger uk-text-capitalize"
+                            onClick={consoleTest}
+                        >
+                            {"Test Access Token"}
+                        </button>
+                    </li>
                     <li>
                         <button
                             className="uk-button uk-button-default uk-text-danger uk-text-capitalize"
