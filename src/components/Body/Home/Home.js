@@ -42,12 +42,6 @@ function Home() {
                             Detail="Allows easy reuse of components and allows the web application to be dynamic with Javascript"
                         />
                         <ButtonDetailComponent
-                            Image={<img src="/images/gopher.svg" width="200px" height="200px"></img>}
-                            Link="https://golang.org/"
-                            Title="Golang"
-                            Detail="Simple and fast language with built-in concurrency which is great for backend development"
-                        />
-                        <ButtonDetailComponent
                             Image={<img src="/images/mongodb.svg" width="200px" height="200px"></img>}
                             Link="https://www.mongodb.com/"
                             Title="MongoDB"
@@ -58,12 +52,6 @@ function Home() {
                             Link="https://www.nginx.com/"
                             Title="NGINX"
                             Detail="A web server application, which is currently being used as an API gateway and for the main web service"
-                        />
-                        <ButtonDetailComponent
-                            Image={<img src="/images/RevelWhiteLines.png" width="200px" height="200px"></img>}
-                            Link="https://revel.github.io/"
-                            Title="Revel"
-                            Detail="A very modular Golang full-stack web framework, which is currently used as the backend API server"
                         />
                         <ButtonDetailComponent
                             Image={<img src="/images/docker.svg" width="200px" height="200px"></img>}

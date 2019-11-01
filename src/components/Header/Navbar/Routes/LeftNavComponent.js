@@ -10,6 +10,9 @@ function LeftNavComponent() {
                 <li>
                     <a href="/search/">Search</a>
                 </li>
+                <li>
+                    <a href="/api/">API</a>
+                </li>
             </ul>
         </div>
     )
