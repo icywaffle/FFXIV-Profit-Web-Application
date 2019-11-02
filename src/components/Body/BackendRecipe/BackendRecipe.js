@@ -117,7 +117,7 @@ function BackendRecipe(props) {
             MarketIngredientPrice: MarketIngredientPrice,
             MarketIngredientAmount: MarketIngredientAmount,
         }
-        var url = "https://" + window.location.hostname + "/userinfo/"
+        var url = "https://" + window.location.hostname + "/api/userinfo/"
         fetch(url, {
             method: "POST",
             headers: {
