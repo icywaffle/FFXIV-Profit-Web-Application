@@ -5,6 +5,7 @@ function Login(props) {
     function Logout() {
         localStorage.removeItem("user")
         localStorage.removeItem("AccessToken")
+        fetch("https://" + window.location.hostname + "/api/userinfo/logout")
         window.location.href = "https://" + window.location.hostname
     }
 

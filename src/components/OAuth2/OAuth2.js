@@ -55,6 +55,7 @@ function OAuth2(props) {
                     },
                     body: JSON.stringify(payload),
                 })
+                // Then we can go ahead and get user information with this access token.
                 fetch('https://discordapp.com/api/users/@me', {
                     headers: {
                         authorization: `${data.token_type} ${data.access_token}`,
