@@ -2,7 +2,7 @@
 
 [ffxivprofit](http://ffxivprofit.com/)
 
-THis is the front-end of the new containized application of FFXIV Profit.
+This is the front-end of the new containized application of FFXIV Profit.
 This is built using Node.JS, and Create-React-App, and it's a single paged application that deals with searching for an item, and looking for the provided information about that item such as item recipes, materials, and profits.
 
 This section is meant to be just one of the microservices that we can have, and to have the other microservices, we would just need to have the endpoint of our server of ffxivprofit.com to be the "load-balancer", and route people to the different pages as requested.
