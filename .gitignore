@@ -33,3 +33,6 @@ etc
 
 #ignore auth keys
 src/authkeys/*
+
+#ignore Service Worker API
+src/serviceWorker.js
