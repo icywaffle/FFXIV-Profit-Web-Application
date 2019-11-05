@@ -63,8 +63,8 @@ function OAuth2(props) {
                         authorization: `${data.token_type} ${data.access_token}`,
                     },
                 })
-                    .then(response => response.json())
-                    .then(userdata => {
+                    .then((response) => response.json())
+                    .then((userdata) => {
                         localStorage.setItem("user", JSON.stringify(userdata))
                         setLogin(localStorage.getItem("user"))
 

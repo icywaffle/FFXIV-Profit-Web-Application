@@ -93,7 +93,7 @@ Now that we have multiple dockerfiles, in order to run them together and allow t
 
 The names of the containers should be as such, since it's dedicated inside the nginx.conf file.
 
-```
+```docker
 
  upstream docker-backend {
 
