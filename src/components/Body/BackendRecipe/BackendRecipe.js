@@ -116,7 +116,11 @@ function BackendRecipe(props) {
             MarketIngredientPrice,
             MarketIngredientAmount,
         }
-        var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/userinfo/"
+        var apiPort = ""
+        if (window.location.hostname === "localhost") {
+            apiPort = ":8080"
+        }
+        var url = window.location.protocol + "//" + window.location.hostname + apiPort + "/api/userinfo/"
         fetch(url, {
             method: "POST",
             headers: {

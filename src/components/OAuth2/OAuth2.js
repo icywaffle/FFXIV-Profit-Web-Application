@@ -17,7 +17,7 @@ function OAuth2(props) {
     function encodePayload() {
         var formBody = []
         for (var property in OAuth2Payload) {
-            if ({}.hasOwnOProperty.call(OAuth2Payload, property)) {
+            if ({}.hasOwnProperty.call(OAuth2Payload, property)) {
                 var encodedKey = encodeURIComponent(property)
                 var encodedValue = encodeURIComponent(OAuth2Payload[property.toString()])
                 formBody.push(encodedKey + "=" + encodedValue)
@@ -50,7 +50,13 @@ function OAuth2(props) {
                     AccessToken: data.access_token,
                 }
                 // We also need to log into the API, since our token will expire
-                fetch(window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/userinfo/login/", {
+
+                // We need to set the API port, depending on development or production
+                var apiPort = ""
+                if (window.location.hostname === "localhost") {
+                    apiPort = ":8080"
+                }
+                fetch(window.location.protocol + "//" + window.location.hostname + apiPort + "/api/userinfo/login/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
