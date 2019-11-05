@@ -24,7 +24,7 @@ function BackendRecipe(props) {
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("user")) && props) {
             const RecipeID = props.MainRecipe.ID
-            var url = "https://" + window.location.hostname + "/api/userinfo/recipe/" + RecipeID
+            var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/userinfo/recipe/" + RecipeID
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
@@ -116,7 +116,7 @@ function BackendRecipe(props) {
             MarketIngredientPrice,
             MarketIngredientAmount,
         }
-        var url = "https://" + window.location.hostname + "/api/userinfo/"
+        var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/userinfo/"
         fetch(url, {
             method: "POST",
             headers: {

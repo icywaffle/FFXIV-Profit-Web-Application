@@ -50,7 +50,7 @@ function OAuth2(props) {
                     AccessToken: data.access_token,
                 }
                 // We also need to log into the API, since our token will expire
-                fetch("https://" + window.location.hostname + "/api/userinfo/login/", {
+                fetch(window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/userinfo/login/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -69,7 +69,7 @@ function OAuth2(props) {
                         setLogin(localStorage.getItem("user"))
 
                         // Once we"re done getting data, move the user off of the query string.
-                        window.location.href = "https://" + window.location.hostname
+                        window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
                     })
             })
 
