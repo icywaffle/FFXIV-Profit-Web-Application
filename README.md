@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8ababf1babc34ebead05a146b6732759)](https://www.codacy.com/manual/synkre/marketboard-frontend?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=icywaffle/marketboard-frontend&amp;utm_campaign=Badge_Grade)
+
 ## Front-End of FFXIV Profit
 
 [ffxivprofit](http://ffxivprofit.com/)
