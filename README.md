@@ -13,17 +13,23 @@ Dockerizing an application makes it more modular, and we can update and change o
 
 ## Tech Stack
 <b>Built with</b>
-- [NGINX](https://www.nginx.com/)
+
+-   [NGINX](https://www.nginx.com/)
 A web server that can be used to hold front-end applications easier, using a Docker Image.
-- [Create-React-App](https://github.com/facebook/create-react-app)
+
+-   [Create-React-App](https://github.com/facebook/create-react-app)
 A simple toolchain that allows you to easily build a single page front-end web application that allows you to jump right into React.
-- [React.js](https://reactjs.org/)
+
+-   [React.js](https://reactjs.org/)
 A front-end web framework that utilizes JSX and Javascript that allows and easier way to create dynamic and responsive web pages.
-- [Docker](https://www.docker.com/)
+
+-   [Docker](https://www.docker.com/)
 A containerization application that allows you to create simple microservices, so that you can easily scale your web applications.
-- [UIKit](https://getuikit.com/)
+
+-   [UIKit](https://getuikit.com/)
 A Front-End web framework that minimilistically styles the site.
-- [XIVAPI](https://xivapi.com/)
+
+-   [XIVAPI](https://xivapi.com/)
 A RESTful API endpoint that allows you to find information of items in an MMORPG, Final Fantasy XIV Online.
 
 ## Current Features
@@ -47,7 +53,7 @@ where the index calls for the search function, or search component, and that com
 ## Testing
 Testing is not yet implemented.
 
-## How to use?
+## How to use
 [ffxivprofit!](http://ffxivprofit.com/)
 
 ## Development
@@ -59,7 +65,7 @@ Then you can build the docker image after. We could do it in a two step process 
 
 Now that we have multiple dockerfiles, in order to run them together and allow the containers to access themselves, in our docker-compose.yaml,
 
-```
+```docker
  version: "3"
 
  services: 
@@ -106,5 +112,4 @@ The names of the containers should be as such, since it's dedicated inside the n
 This clever upstream allows us to redirect to an HTTP backend RESTful server, behind the HTTPS NGINX web server.
 
 ## License
-MIT © [2019] (Jacob Nguyen)
-
+MIT © \[2019] (Jacob Nguyen)

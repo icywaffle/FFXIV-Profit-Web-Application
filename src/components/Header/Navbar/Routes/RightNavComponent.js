@@ -25,7 +25,7 @@ function RightNavComponent() {
                             uk-icon="icon: github-alt">
                         </a>
                     </li>
-                    <Route path="/*" render={querycode => <OAuth2 code={querycode} />} />
+                    <Route path="/*" render={(querycode) => <OAuth2 code={querycode} />} />
                 </ul>
             </div>
         </Router>

@@ -6,14 +6,14 @@ import ChangePageComponent from "./ChangePageComponent"
 
 // Shows all the items given the correct API response, given incrementPage, decrementPage, and searchData
 function APIResponse(props) {
-    function PrevPage() {
+    function prevPage() {
         if (props.searchData && props.searchData.Pagination.PagePrev !== null) {
             return <ChangePageComponent handleClick={props.decrementPage} detail="Prev Page" />
         } else {
             return null
         }
     }
-    function NextPage() {
+    function nextPage() {
         if (props.searchData && props.searchData.Pagination.PageNext !== null) {
             return <ChangePageComponent handleClick={props.incrementPage} detail="Next Page" />
         } else {
@@ -30,8 +30,8 @@ function APIResponse(props) {
                 <ListOfSearchItems {...props} />
             </div>
             <div>
-                {PrevPage()}
-                {NextPage()}
+                {prevPage()}
+                {nextPage()}
                 <Loading loading={props.loading} />
             </div>
 

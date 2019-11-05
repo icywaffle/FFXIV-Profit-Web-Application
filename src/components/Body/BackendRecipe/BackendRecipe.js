@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import MainRecipeComponent from './MainRecipeComponent'
-import MaterialRecipeComponent from './MaterialRecipeComponent'
+import React, { useState, useEffect } from "react"
+import MainRecipeComponent from "./MainRecipeComponent"
+import MaterialRecipeComponent from "./MaterialRecipeComponent"
 import Loading from "components/Body/Loading"
 import Confirmation from "./Confirmation"
 
@@ -26,12 +26,12 @@ function BackendRecipe(props) {
             const RecipeID = props.MainRecipe.ID
             var url = "https://" + window.location.hostname + "/api/userinfo/recipe/" + RecipeID
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    // Only set if we have a response. If we don't , then return defaults
-                    if (data.UserPrices !== undefined) {
+                .then((response) => response.json())
+                .then((data) => {
+                    // Only set if we have a response. If we don"t , then return defaults
+                    if (data.UserPrices) {
                         // Main Item Data
-                        if (data.UserPrices[props.MainRecipe.ItemResultTargetID] !== undefined) {
+                        if (data.UserPrices[props.MainRecipe.ItemResultTargetID]) {
                             setMarketItemPrice(data.UserPrices[props.MainRecipe.ItemResultTargetID].MarketItemPrice)
                             setMarketAmount(data.UserPrices[props.MainRecipe.ItemResultTargetID].MarketAmount)
                         }
@@ -39,11 +39,11 @@ function BackendRecipe(props) {
                         const newMarketIngredientPrice = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                         const newMarketIngredientAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                         for (var i = 0; i < props.MainRecipe.IngredientID.length; i++) {
-                            if (props.MainRecipe.IngredientID[i] !== 0) {
-                                const Price = data.UserPrices[props.MainRecipe.IngredientID[i]]
-                                if (Price !== undefined) {
-                                    newMarketIngredientPrice[i] = Price.MarketItemPrice
-                                    newMarketIngredientAmount[i] = Price.MarketAmount
+                            if (props.MainRecipe.IngredientID[parseInt(i)] !== 0) {
+                                const Price = data.UserPrices[props.MainRecipe.IngredientID[parseInt(i)]]
+                                if (Price) {
+                                    newMarketIngredientPrice[parseInt(i)] = Price.MarketItemPrice
+                                    newMarketIngredientAmount[parseInt(i)] = Price.MarketAmount
                                 }
 
                             }
@@ -60,7 +60,7 @@ function BackendRecipe(props) {
         if (props) {
             var totalSum = 0
             for (var i = 0; i < MarketIngredientPrice.length; i++) {
-                totalSum += MarketIngredientPrice[i] * props.MainRecipe.IngredientAmounts[i]
+                totalSum += MarketIngredientPrice[parseInt(i)] * props.MainRecipe.IngredientAmounts[parseInt(i)]
             }
             setProfits(MarketItemPrice - totalSum)
             setMaterialCosts(totalSum)
@@ -106,22 +106,21 @@ function BackendRecipe(props) {
         const ItemID = props.MainRecipe.ItemResultTargetID
         const IngredientItemID = props.MainRecipe.IngredientID
         const payload = {
-            RecipeID: RecipeID,
-            ItemID: ItemID,
-            Profits: Profits,
-            ProfitPercentage: ProfitPercentage,
-            MarketItemPrice: MarketItemPrice,
-            MarketAmount: MarketAmount,
-
-            IngredientItemID: IngredientItemID,
-            MarketIngredientPrice: MarketIngredientPrice,
-            MarketIngredientAmount: MarketIngredientAmount,
+            RecipeID,
+            ItemID,
+            Profits,
+            ProfitPercentage,
+            MarketItemPrice,
+            MarketAmount,
+            IngredientItemID,
+            MarketIngredientPrice,
+            MarketIngredientAmount,
         }
         var url = "https://" + window.location.hostname + "/api/userinfo/"
         fetch(url, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(payload),
         })
@@ -131,41 +130,37 @@ function BackendRecipe(props) {
         return null
     }
 
-    if (props !== null) {
-
-        return (<div>
-            <Loading loading={props.loading} />
-            <MainRecipeComponent
-                baserecipe={props.MainRecipe}
-                onSubmit={onSubmit}
-                MarketItemPrice={MarketItemPrice}
-                handleItemPriceChange={handleItemPriceChange}
-                Profits={Profits}
-                ProfitPercentage={ProfitPercentage}
-                MaterialCosts={MaterialCosts}
-            />
-            <MaterialRecipeComponent
-                baserecipe={props.MainRecipe}
-                matinfo={props.InnerRecipes}
-                MarketIngredientAmount={MarketIngredientAmount}
-                MarketIngredientPrice={MarketIngredientPrice}
-                handleIngredientPriceChange={handleIngredientPriceChange}
-                handleAmountChange={handleAmountChange}
-                onSubmit={onSubmit}
-            />
-            <div>
-                <Confirmation submitted={submitted} />
-                <button
-                    className="uk-button uk-button-default"
-                    onClick={backendPOST}
-                >
-                    Submit Prices
+    return (<div>
+        <Loading loading={props.loading} />
+        <MainRecipeComponent
+            baserecipe={props.MainRecipe}
+            onSubmit={onSubmit}
+            MarketItemPrice={MarketItemPrice}
+            handleItemPriceChange={handleItemPriceChange}
+            Profits={Profits}
+            ProfitPercentage={ProfitPercentage}
+            MaterialCosts={MaterialCosts}
+        />
+        <MaterialRecipeComponent
+            baserecipe={props.MainRecipe}
+            matinfo={props.InnerRecipes}
+            MarketIngredientAmount={MarketIngredientAmount}
+            MarketIngredientPrice={MarketIngredientPrice}
+            handleIngredientPriceChange={handleIngredientPriceChange}
+            handleAmountChange={handleAmountChange}
+            onSubmit={onSubmit}
+        />
+        <div>
+            <Confirmation submitted={submitted} />
+            <button
+                className="uk-button uk-button-default"
+                onClick={backendPOST}
+            >
+                Submit Prices
                 </button>
-            </div>
-        </div>)
-    }
+        </div>
+    </div>)
 
-    return null
 
 
 }

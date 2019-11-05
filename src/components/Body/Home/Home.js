@@ -1,6 +1,6 @@
-import React from 'react'
-import LeftTextSection from './LeftTextSection'
-import ButtonDetailComponent from './ButtonDetailComponent'
+import React from "react"
+import LeftTextSection from "./LeftTextSection"
+import ButtonDetailComponent from "./ButtonDetailComponent"
 
 
 function Home() {
