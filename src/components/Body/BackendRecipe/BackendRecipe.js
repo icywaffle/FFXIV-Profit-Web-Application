@@ -24,7 +24,7 @@ function BackendRecipe(props) {
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("user")) && props) {
             const RecipeID = props.MainRecipe.ID
-            var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/userinfo/recipe/" + RecipeID
+            var url = "https://" + window.location.hostname + "/api/userinfo/recipe/" + RecipeID
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
@@ -116,11 +116,15 @@ function BackendRecipe(props) {
             MarketIngredientPrice,
             MarketIngredientAmount,
         }
+<<<<<<< HEAD
         var apiPort = ""
         if (window.location.hostname === "localhost") {
             apiPort = ":8080"
         }
         var url = window.location.protocol + "//" + window.location.hostname + apiPort + "/api/userinfo/"
+=======
+        var url = "https://" + window.location.hostname + "/api/userinfo/"
+>>>>>>> parent of 88c16ea... Changed URLs to be more development friendly
         fetch(url, {
             method: "POST",
             headers: {

@@ -50,6 +50,7 @@ function OAuth2(props) {
                     AccessToken: data.access_token,
                 }
                 // We also need to log into the API, since our token will expire
+<<<<<<< HEAD
 
                 // We need to set the API port, depending on development or production
                 var apiPort = ""
@@ -57,6 +58,9 @@ function OAuth2(props) {
                     apiPort = ":8080"
                 }
                 fetch(window.location.protocol + "//" + window.location.hostname + apiPort + "/api/userinfo/login/", {
+=======
+                fetch("https://" + window.location.hostname + "/api/userinfo/login/", {
+>>>>>>> parent of 88c16ea... Changed URLs to be more development friendly
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -75,7 +79,7 @@ function OAuth2(props) {
                         setLogin(localStorage.getItem("user"))
 
                         // Once we"re done getting data, move the user off of the query string.
-                        window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+                        window.location.href = "https://" + window.location.hostname
                     })
             })
 

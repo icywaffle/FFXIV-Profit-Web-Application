@@ -6,7 +6,7 @@ function Login(props) {
         localStorage.removeItem("user")
         localStorage.removeItem("AccessToken")
         fetch("https://" + window.location.hostname + "/api/userinfo/logout")
-        window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+        window.location.href = "https://" + window.location.hostname
     }
 
     if (props.userinfo) {
