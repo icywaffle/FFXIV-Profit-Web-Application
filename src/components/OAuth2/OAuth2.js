@@ -33,6 +33,7 @@ function OAuth2(props) {
         var url = "https://discordapp.com/api/oauth2/token"
         OAuth2Payload.code = currentCode
         var encodedPayload = encodePayload()
+        console.log(encodedPayload)
         fetch(url, {
             method: "POST",
 
@@ -50,17 +51,11 @@ function OAuth2(props) {
                     AccessToken: data.access_token,
                 }
                 // We also need to log into the API, since our token will expire
-<<<<<<< HEAD
-
-                // We need to set the API port, depending on development or production
-                var apiPort = ""
+                var APIurl = "https://" + window.location.hostname + "/api/userinfo/login/"
                 if (window.location.hostname === "localhost") {
-                    apiPort = ":8080"
+                    APIurl = "http://localhost:8080/api/userinfo/login/"
                 }
-                fetch(window.location.protocol + "//" + window.location.hostname + apiPort + "/api/userinfo/login/", {
-=======
-                fetch("https://" + window.location.hostname + "/api/userinfo/login/", {
->>>>>>> parent of 88c16ea... Changed URLs to be more development friendly
+                fetch(APIurl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -79,7 +74,7 @@ function OAuth2(props) {
                         setLogin(localStorage.getItem("user"))
 
                         // Once we"re done getting data, move the user off of the query string.
-                        window.location.href = "https://" + window.location.hostname
+                        window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
                     })
             })
 

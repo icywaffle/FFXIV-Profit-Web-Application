@@ -16,7 +16,7 @@ function MaterialRecipeComponent(props) {
             : <div>
                 <ul uk-accordion="multiple: true">
                     <li>
-                        <a class="uk-accordion-title" href="#">Craftable</a>
+                        <a className="uk-accordion-title" href="#">Craftable</a>
                         <div className="uk-accordion-content">
                             <BackendRecipe MainRecipe={matinfo[matrecipe[parseInt(index)][0]]} InnerRecipes={matinfo} />
                         </div>

@@ -24,8 +24,13 @@ function BackendRecipe(props) {
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("user")) && props) {
             const RecipeID = props.MainRecipe.ID
-            var url = "https://" + window.location.hostname + "/api/userinfo/recipe/" + RecipeID
-            fetch(url)
+            var APIurl = "https://" + window.location.hostname + "/api/userinfo/recipe/" + RecipeID
+            if (window.location.hostname === "localhost") {
+                APIurl = "http://localhost:8080/api/userinfo/recipe/" + RecipeID
+            }
+            fetch(APIurl, {
+                credentials: "include",
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     // Only set if we have a response. If we don"t , then return defaults
@@ -116,17 +121,13 @@ function BackendRecipe(props) {
             MarketIngredientPrice,
             MarketIngredientAmount,
         }
-<<<<<<< HEAD
-        var apiPort = ""
+        var APIurl = "https://" + window.location.hostname + "/api/userinfo/"
         if (window.location.hostname === "localhost") {
-            apiPort = ":8080"
+            APIurl = "http://localhost:8080/api/userinfo/"
         }
-        var url = window.location.protocol + "//" + window.location.hostname + apiPort + "/api/userinfo/"
-=======
-        var url = "https://" + window.location.hostname + "/api/userinfo/"
->>>>>>> parent of 88c16ea... Changed URLs to be more development friendly
-        fetch(url, {
+        fetch(APIurl, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },

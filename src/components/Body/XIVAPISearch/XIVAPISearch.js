@@ -12,12 +12,13 @@ function XIVAPISearch() {
 
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     function backendSearch(recipeID) {
-        var apiPort = ""
+        var APIurl = "https://" + window.location.hostname + "/api/recipe/" + recipeID
         if (window.location.hostname === "localhost") {
-            apiPort = ":8080"
+            APIurl = "http://localhost:8080/api/recipe/" + recipeID
         }
-        const url = window.location.protocol + "//" + window.location.hostname + apiPort + "/api/recipe/" + recipeID
-        fetch(url)
+        fetch(APIurl, {
+            credentials: "include",
+        })
             .then((response) => response.json())
             .then((data) => {
                 setSearchData(null)
