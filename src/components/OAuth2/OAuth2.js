@@ -31,9 +31,14 @@ function OAuth2(props) {
     // Requests for an access token, so we can access user"s info
     function requestAccessToken() {
         var url = "https://discordapp.com/api/oauth2/token"
+        // When a user presses cancel, then don't bother continuing
+        if (props.code.location.search.slice(0, 6) !== "?code=") {
+            window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+            return
+        }
         OAuth2Payload.code = currentCode
         var encodedPayload = encodePayload()
-        console.log(encodedPayload)
+
         fetch(url, {
             method: "POST",
 
