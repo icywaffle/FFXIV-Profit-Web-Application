@@ -14,10 +14,17 @@ function Home() {
                 Body={
                     <div>
                         <p className="subtitle-text">Designed to calculate whether an item you craft nets you profit</p>
-                        <ButtonDetailComponent
-                            Link="/search"
-                            Title="Search Now"
-                        />
+                        <div className="uk-text-center uk-scrollspy-inview uk-animation-fade">
+                            <h3 className="uk-margin-small-bottom uk-margin-top">
+                                <a
+                                    href="/search"
+                                    title="Search Now"
+                                    className="uk-button uk-button-default uk-text-capitalize"
+                                >
+                                    Search Now
+                                </a>
+                            </h3>
+                        </div>
                     </div>
                 }
                 Image={
