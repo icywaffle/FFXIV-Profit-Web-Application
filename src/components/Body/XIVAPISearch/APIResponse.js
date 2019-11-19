@@ -23,19 +23,17 @@ function APIResponse(props) {
 
     return (
         // We need to offset the top of the viewport according to the navbar.
-        <div>
-
-            <div>
+        <React.Fragment>
+            <div className="uk-background-secondary">
                 <Loading loading={props.loading} />
                 <ListOfSearchItems {...props} />
             </div>
-            <div>
+            <div className="uk-background-secondary">
                 {prevPage()}
                 {nextPage()}
                 <Loading loading={props.loading} />
             </div>
-
-        </div>
+        </React.Fragment>
     )
 }
 

@@ -31,11 +31,7 @@ function OAuth2(props) {
     // Requests for an access token, so we can access user"s info
     function requestAccessToken() {
         var url = "https://discordapp.com/api/oauth2/token"
-        // When a user presses cancel, then don't bother continuing
-        if (props.code.location.search.slice(0, 6) !== "?code=") {
-            window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
-            return
-        }
+
         OAuth2Payload.code = currentCode
         var encodedPayload = encodePayload()
 
@@ -88,8 +84,12 @@ function OAuth2(props) {
 
     // Only want to request once, and we only want to do it if we made a request with a code query
     useEffect(() => {
-        if (currentCode !== "") {
+        // If we had access denied, user must have requested a cancel.
+        if (props.code.location.search.slice(0, 6) === "?code=") {
             requestAccessToken()
+        } else if (props.code.location.search.slice(0, 20) === "?error=access_denied") {
+            window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+            return
         }
     }, [])
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import BackendRecipe from "components/Body/BackendRecipe"
 import APIReponse from "./APIResponse"
 import SearchFormComponent from "./SearchFormComponent"
@@ -8,7 +8,13 @@ function XIVAPISearch() {
     const [itemName, setItemName] = useState("")
     const [searchData, setSearchData] = useState(null)
     const [recipeData, setRecipeData] = useState(null)
+    const [queryRecipeID] = useState(window.location.search.substring(10))
 
+    useEffect(() => {
+        if (queryRecipeID !== "") {
+            backendSearch(queryRecipeID)
+        }
+    }, [queryRecipeID])
 
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     function backendSearch(recipeID) {
