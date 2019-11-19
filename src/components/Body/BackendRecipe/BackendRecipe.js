@@ -172,9 +172,35 @@ function BackendRecipe(props) {
 		})
 	}
 
+	function confirmationButton() {
+		if (submitted) {
+			return (<Confirmation submitted={submitted} />)
+		}
+		var discordURL = "https://discordapp.com/api/oauth2/authorize?client_id=598247290972667904&redirect_uri=https%3A%2F%2Fffxivprofit.com%2FUser&response_type=code&scope=identify"
+		if (window.location.hostname === "localhost") {
+			discordURL = "https://discordapp.com/api/oauth2/authorize?client_id=598247290972667904&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2FUser&response_type=code&scope=identify"
+		}
+
+		if (!localStorage.getItem("user")) {
+			return (
+				<a
+					href={discordURL}
+					className="uk-button uk-button-default">
+					Login to Submit Prices
+				</a>
+			)
+		}
+
+		return (
+			<button className="uk-button uk-button-default" onClick={backendPOST}>
+				Submit Prices
+				</button>
+		)
+	}
 	if (props === null) {
 		return null
 	}
+
 
 	return (
 		<div>
@@ -197,11 +223,10 @@ function BackendRecipe(props) {
 				handleAmountChange={handleAmountChange}
 				onSubmit={onSubmit}
 			/>
-			<div>
-				<Confirmation submitted={submitted} />
-				<button className="uk-button uk-button-default" onClick={backendPOST}>
-					Submit Prices
-				</button>
+			<div className="uk-container">
+				<div className="uk-width-4-5 uk-float-right">
+					{confirmationButton()}
+				</div>
 			</div>
 		</div>
 	)

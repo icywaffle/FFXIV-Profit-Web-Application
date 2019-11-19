@@ -15,10 +15,10 @@ function LeftNavComponent() {
                     <a href="/search/">Search</a>
                 </li>
                 <li>
-                    <a href={APIurl}>API</a>
+                    <a href="/profits/">Profits</a>
                 </li>
                 <li>
-                    <a href="/profits/">Profits</a>
+                    <a href={APIurl}>API</a>
                 </li>
             </ul>
         </div>
