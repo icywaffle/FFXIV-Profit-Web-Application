@@ -17,6 +17,9 @@ function LeftNavComponent() {
                 <li>
                     <a href={APIurl}>API</a>
                 </li>
+                <li>
+                    <a href="/profits/">Profits</a>
+                </li>
             </ul>
         </div>
     )
