@@ -5,7 +5,7 @@ export default function Profits() {
 
 	function handleItemClick(event) {
 		const { value } = event.target
-		var url = "https://" + window.location.host + "/search?Item=" + value
+		var url = "https://" + window.location.host + "/search?RecipeID=" + value
 		if (window.location.hostname === "localhost") {
 			url = "http://localhost:3000/search?RecipeID=" + value
 		}

@@ -13,7 +13,8 @@ function Login(props) {
         fetch(APIurl, {
             credentials: "include",
         })
-        window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+            .then(() => window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port)
+
     }
 
     if (props.userinfo) {
