@@ -54,7 +54,6 @@ export default function Profits() {
 			.then((response) => response.json())
 			.then((data) => {
 				setSortedRecipes(data.SortedRecipes)
-				console.log(data.SortedRecipes)
 			})
 	}, [])
 

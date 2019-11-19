@@ -57,6 +57,7 @@ function OAuth2(props) {
                     APIurl = "http://localhost:8080/api/userinfo/login/"
                 }
                 fetch(APIurl, {
+                    credentials: "include",
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
