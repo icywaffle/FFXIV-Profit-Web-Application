@@ -3,7 +3,7 @@ import React from "react"
 function LeftNavComponent() {
     var APIurl = "/api/"
     if (window.location.hostname === "localhost") {
-        APIurl = "http://localhost:8080/api/"
+        APIurl = "http://localhost:3001/api/home"
     }
     return (
         <div className="uk-navbar-left uk-container uk-container-expand">
