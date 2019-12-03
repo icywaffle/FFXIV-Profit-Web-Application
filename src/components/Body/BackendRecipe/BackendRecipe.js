@@ -46,12 +46,10 @@ function BackendRecipe(props) {
 		if (JSON.parse(localStorage.getItem("user")) && props) {
 			const RecipeID = props.MainRecipe.ID
 			// Parse the window location to know what domain we're at
-			var URLParts = window.location.hostname
-			var firstDotPosition = URLParts.indexOf(".")
-			var APIURL = URLParts.substring(firstDotPosition + 1)
+			var APIURL = window.location.hostname
 			// If we're localhost, then we have to describe by port, otherwise map to api subdomain
 			if (window.location.hostname === "localhost") {
-				APIURL = "http://localhost:3001"
+				APIURL = "http://localhost:8080"
 			} else {
 				APIURL = "https://api." + APIURL
 			}
@@ -164,12 +162,10 @@ function BackendRecipe(props) {
 			MarketIngredientAmount
 		}
 		// Parse the window location to know what domain we're at
-		var URLParts = window.location.hostname
-		var firstDotPosition = URLParts.indexOf(".")
-		var APIURL = URLParts.substring(firstDotPosition + 1)
+		var APIURL = window.location.hostname
 		// If we're localhost, then we have to describe by port, otherwise map to api subdomain
 		if (window.location.hostname === "localhost") {
-			APIURL = "http://localhost:3001"
+			APIURL = "http://localhost:8080"
 		} else {
 			APIURL = "https://api." + APIURL
 		}

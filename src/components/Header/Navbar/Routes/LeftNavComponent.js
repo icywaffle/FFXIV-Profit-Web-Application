@@ -2,14 +2,12 @@ import React from "react"
 
 function LeftNavComponent() {
     // Parse the window location to know what domain we're at
-    var URLParts = window.location.hostname
-    var firstDotPosition = URLParts.indexOf(".")
-    var APIURL = URLParts.substring(firstDotPosition + 1)
+    var APIURL = window.location.hostname
     // If we're localhost, then we have to describe by port, otherwise map to api subdomain
     if (window.location.hostname === "localhost") {
         APIURL = "http://localhost:3001"
     } else {
-        APIURL = "https://api." + APIURL
+        APIURL = "https://analytics." + APIURL
     }
     return (
         <div className="uk-navbar-left uk-container uk-container-expand">

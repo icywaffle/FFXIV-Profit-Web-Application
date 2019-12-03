@@ -19,22 +19,17 @@ function XIVAPISearch() {
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     function backendSearch(recipeID) {
         // Parse the window location to know what domain we're at
-        var URLParts = window.location.hostname
-        var firstDotPosition = URLParts.indexOf(".")
-        var APIURL = URLParts.substring(firstDotPosition + 1)
+        var APIURL = window.location.hostname
         // If we're localhost, then we have to describe by port, otherwise map to api subdomain
         if (window.location.hostname === "localhost") {
-            APIURL = "http://localhost:3001"
+            APIURL = "http://localhost:8080"
         } else {
             APIURL = "https://api." + APIURL
         }
         // Add the path
-        var APIurl = APIurl + "/recipe/" + recipeID
+        var APIURL = APIURL + "/recipe/" + recipeID
 
-        if (window.location.hostname === "localhost") {
-            APIurl = "http://localhost:8080/api/recipe/" + recipeID
-        }
-        fetch(APIurl, {
+        fetch(APIURL, {
             credentials: "include",
         })
             .then((response) => response.json())

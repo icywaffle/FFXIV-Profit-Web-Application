@@ -52,11 +52,18 @@ function OAuth2(props) {
                     AccessToken: data.access_token,
                 }
                 // We also need to log into the API, since our token will expire
-                var APIurl = "https://" + window.location.hostname + "/api/userinfo/login/"
+                // Parse the window location to know what domain we're at
+                var APIURL = window.location.hostname
+                // If we're localhost, then we have to describe by port, otherwise map to api subdomain
                 if (window.location.hostname === "localhost") {
-                    APIurl = "http://localhost:8080/api/userinfo/login/"
+                    APIURL = "http://localhost:8080"
+                } else {
+                    APIURL = "https://api." + APIURL
                 }
-                fetch(APIurl, {
+
+                APIURL = APIURL + "/userinfo/login/"
+
+                fetch(APIURL, {
                     credentials: "include",
                     method: "POST",
                     headers: {

@@ -44,11 +44,18 @@ export default function Profits() {
 	}
 
 	useEffect(() => {
-		var APIurl = "https://" + window.location.hostname + "/api/userinfo/profits"
+		// Parse the window location to know what domain we're at
+		var APIURL = window.location.hostname
+		// If we're localhost, then we have to describe by port, otherwise map to api subdomain
 		if (window.location.hostname === "localhost") {
-			APIurl = "http://localhost:8080/api/userinfo/profits"
+			APIURL = "http://localhost:8080"
+		} else {
+			APIURL = "https://api." + APIURL
 		}
-		fetch(APIurl, {
+		// Add the path
+		var APIURL = APIURL + "/userinfo/profits"
+
+		fetch(APIURL, {
 			credentials: "include"
 		})
 			.then((response) => response.json())
