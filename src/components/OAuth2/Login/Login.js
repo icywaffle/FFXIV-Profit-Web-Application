@@ -6,14 +6,17 @@ function Login(props) {
         localStorage.removeItem("user")
         localStorage.removeItem("AccessToken")
         // Logout from API
-        var APIurl = "https://" + window.location.hostname + "/api/userinfo/logout"
+        var APIurl = "https://api." + window.location.hostname + "/userinfo/logout"
         if (window.location.hostname === "localhost") {
-            APIurl = "http://localhost:8080/api/userinfo/logout"
+            APIurl = "http://localhost:8080/userinfo/logout"
         }
         fetch(APIurl, {
             credentials: "include",
         })
-            .then(() => window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port)
+            .then((json) => {
+                // Move user off after logoff
+                window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+            })
 
     }
 

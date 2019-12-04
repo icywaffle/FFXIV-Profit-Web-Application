@@ -71,19 +71,22 @@ function OAuth2(props) {
                     },
                     body: JSON.stringify(payload),
                 })
-                // Then we can go ahead and get user information with this access token.
-                fetch("https://discordapp.com/api/users/@me", {
-                    headers: {
-                        authorization: `${data.token_type} ${data.access_token}`,
-                    },
-                })
-                    .then((response) => response.json())
-                    .then((userdata) => {
-                        localStorage.setItem("user", JSON.stringify(userdata))
-                        setLogin(localStorage.getItem("user"))
+                    // Only start the redirect after we logged in from the API.
+                    .then((json) => {
+                        // Then we can go ahead and get user information with this access token.
+                        fetch("https://discordapp.com/api/users/@me", {
+                            headers: {
+                                authorization: `${data.token_type} ${data.access_token}`,
+                            },
+                        })
+                            .then((response) => response.json())
+                            .then((userdata) => {
+                                localStorage.setItem("user", JSON.stringify(userdata))
+                                setLogin(localStorage.getItem("user"))
 
-                        // Once we"re done getting data, move the user off of the query string.
-                        window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+                                // Once we"re done getting data, move the user off of the query string.
+                                window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+                            })
                     })
             })
 
