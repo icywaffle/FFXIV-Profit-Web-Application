@@ -211,6 +211,52 @@ function BackendRecipe(props) {
 		return null
 	}
 
+	function UniversalisApp() {
+		const request = async () => {
+
+			// Call for the main recipe price first
+			const mainRecipeID = props.MainRecipe.ItemResultTargetID
+			const mainResponse = await fetch("https://universalis.app/api/Sargatanas/" + mainRecipeID.toString())
+			const data = await mainResponse.json()
+			// Force wait for 60ms, so that we can rate limit our calls.
+			await new Promise((resolve) => {
+				setTimeout(() => {
+					resolve()
+				}, 60)
+			})
+
+			setMarketItemPrice(data.averagePrice)
+
+			// Then we can call for the recipe ingredients next
+			const newMarketIngredientPrices = [...MarketIngredientPrice]
+
+			for (var i = 0; i < props.MainRecipe.IngredientID.length; i++) {
+				const index = i
+				if (props.MainRecipe.IngredientID[parseInt(i)] !== 0) {
+					const itemID = props.MainRecipe.IngredientID[parseInt(i)]
+
+					const response = await fetch("https://universalis.app/api/Sargatanas/" + itemID.toString())
+					const data = await response.json()
+
+					// Force wait for 60ms, so that we can rate limit our calls.
+					await new Promise((resolve) => {
+						setTimeout(() => {
+							resolve()
+						}, 60)
+					})
+
+
+					newMarketIngredientPrices[parseInt(index)] = data.averagePrice
+
+					console.log(MarketIngredientPrice)
+				}
+			}
+
+			setMarketIngredientPrice(newMarketIngredientPrices)
+		}
+		request()
+
+	}
 
 	return (
 		<div>
@@ -223,6 +269,7 @@ function BackendRecipe(props) {
 				Profits={Profits}
 				ProfitPercentage={ProfitPercentage}
 				MaterialCosts={MaterialCosts}
+				Universalis={UniversalisApp}
 			/>
 			<MaterialRecipeComponent
 				baserecipe={props.MainRecipe}

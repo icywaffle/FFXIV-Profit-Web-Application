@@ -1,7 +1,13 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import BackendRecipe from "./BackendRecipe"
 
 function MaterialRecipeComponent(props) {
+    const [ingredientPrice, setIngredientPrice] = useState(props.MarketIngredientPrice)
+    // Every time we change the ingredient price, reflect the change
+    useEffect(() => {
+        setIngredientPrice(props.MarketIngredientPrice)
+        console.log(props.MarketIngredientPrice)
+    }, [props.MarketIngredientPrice])
     const baserecipe = props.baserecipe
     const matinfo = props.matinfo
     const materialList = baserecipe.IngredientNames.map((material, index) => {
@@ -36,7 +42,7 @@ function MaterialRecipeComponent(props) {
                             className="uk-input"
                             type="text"
                             name={index}
-                            value={props.MarketIngredientPrice[parseInt(index)]}
+                            value={ingredientPrice[parseInt(index)]}
                             placeholder="Current Market Price"
                             onChange={props.handleIngredientPriceChange}
                         />

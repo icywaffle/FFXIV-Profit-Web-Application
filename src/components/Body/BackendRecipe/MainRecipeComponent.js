@@ -16,6 +16,12 @@ function MainRecipeComponent(props) {
                         />
                         <span> {baserecipe.Name}</span>
                     </h4>
+                    <button
+                        class="uk-button uk-button-default"
+                        onClick={props.Universalis}
+                    >
+                        Fill Profits with Universalis
+                    </button>
                     <form
                         className="uk-form-width-small"
                         onSubmit={props.handleSubmit}
