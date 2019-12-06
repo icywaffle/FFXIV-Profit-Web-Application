@@ -9,12 +9,19 @@ function XIVAPISearch() {
     const [searchData, setSearchData] = useState(null)
     const [recipeData, setRecipeData] = useState(null)
     const [queryRecipeID] = useState(window.location.search.substring(10))
+    const [isRecipeClicked, setRecipeClicked] = useState(false)
 
     useEffect(() => {
         if (queryRecipeID !== "") {
             backendSearch(queryRecipeID)
         }
     }, [queryRecipeID])
+
+    useEffect(() => {
+        if (isRecipeClicked) {
+            setLoadStatus(true)
+        }
+    }, [isRecipeClicked])
 
     // Searches using the backend RESTful api server, for the specific information about that recipeID
     function backendSearch(recipeID) {
@@ -27,7 +34,7 @@ function XIVAPISearch() {
             APIURL = "https://api." + APIURL
         }
         // Add the path
-        var APIURL = APIURL + "/recipe/" + recipeID
+        APIURL = APIURL + "/recipe/" + recipeID
 
         fetch(APIURL, {
             credentials: "include",
@@ -86,7 +93,12 @@ function XIVAPISearch() {
     // Will grab the recipeID from the clicked item, and searches the backend RESTful API
     function handleItemClick(event) {
         const { value } = event.target
-        setLoadStatus(true)
+
+        // So apparently setting Loading by itself will not work. LOL
+        // So you have to set Recipe Clicked to true, useEffect to detect this change,
+        // THEN you can set loading.
+        setRecipeClicked(true)
+
         // We now have a recipeID
         // Given this recipeID, we need to call the database, for the information
         backendSearch(value)

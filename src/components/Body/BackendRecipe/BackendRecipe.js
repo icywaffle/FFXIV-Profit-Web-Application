@@ -40,6 +40,16 @@ function BackendRecipe(props) {
 
 	const [MaterialCosts, setMaterialCosts] = useState(0)
 	const [submitted, setSubmitted] = useState(false)
+	const [isLoading, setLoading] = useState(false)
+	const [isUniversalisClicked, setUniversalisClicked] = useState(false)
+
+	useEffect(() => {
+		if (isUniversalisClicked) {
+			setLoading(true)
+		} else {
+			setLoading(false)
+		}
+	}, [isUniversalisClicked])
 
 	// We only try to obtain data each time we get a new recipe
 	useEffect(() => {
@@ -147,7 +157,7 @@ function BackendRecipe(props) {
 		const IngredientItemID = props.MainRecipe.IngredientID
 		const ItemName = props.MainRecipe.Name
 		const IconID = props.MainRecipe.IconID
-		const payload = {
+		var payload = {
 			RecipeID,
 			ItemID,
 			IconID,
@@ -161,6 +171,7 @@ function BackendRecipe(props) {
 			MarketIngredientPrice,
 			MarketIngredientAmount
 		}
+
 		// Parse the window location to know what domain we're at
 		var APIURL = window.location.hostname
 		// If we're localhost, then we have to describe by port, otherwise map to api subdomain
@@ -212,6 +223,7 @@ function BackendRecipe(props) {
 	}
 
 	function UniversalisApp() {
+		setUniversalisClicked(true)
 		const request = async () => {
 
 			// Call for the main recipe price first
@@ -225,7 +237,7 @@ function BackendRecipe(props) {
 				}, 60)
 			})
 
-			setMarketItemPrice(data.averagePrice)
+			setMarketItemPrice(parseInt(data.averagePrice))
 
 			// Then we can call for the recipe ingredients next
 			const newMarketIngredientPrices = [...MarketIngredientPrice]
@@ -246,21 +258,38 @@ function BackendRecipe(props) {
 					})
 
 
-					newMarketIngredientPrices[parseInt(index)] = data.averagePrice
-
-					console.log(MarketIngredientPrice)
+					newMarketIngredientPrices[parseInt(index)] = parseInt(data.averagePrice)
 				}
 			}
 
 			setMarketIngredientPrice(newMarketIngredientPrices)
+			setUniversalisClicked(false)
 		}
 		request()
+	}
+
+	function UniversalisButton() {
+		if (isLoading) {
+			return (<Loading loading={isLoading} />)
+		}
+
+		return (<button
+			className="uk-button uk-button-default"
+			onClick={UniversalisApp}
+		>
+			Fill Profits with Universalis
+		</button>)
 
 	}
 
 	return (
 		<div>
 			<Loading loading={props.loading} />
+			<div className="uk-container">
+				<div className="uk-width-4-5 uk-float-right">
+					{UniversalisButton()}
+				</div>
+			</div>
 			<MainRecipeComponent
 				baserecipe={props.MainRecipe}
 				onSubmit={onSubmit}
@@ -269,7 +298,6 @@ function BackendRecipe(props) {
 				Profits={Profits}
 				ProfitPercentage={ProfitPercentage}
 				MaterialCosts={MaterialCosts}
-				Universalis={UniversalisApp}
 			/>
 			<MaterialRecipeComponent
 				baserecipe={props.MainRecipe}

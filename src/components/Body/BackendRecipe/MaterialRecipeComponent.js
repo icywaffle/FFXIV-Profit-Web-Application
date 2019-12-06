@@ -6,7 +6,6 @@ function MaterialRecipeComponent(props) {
     // Every time we change the ingredient price, reflect the change
     useEffect(() => {
         setIngredientPrice(props.MarketIngredientPrice)
-        console.log(props.MarketIngredientPrice)
     }, [props.MarketIngredientPrice])
     const baserecipe = props.baserecipe
     const matinfo = props.matinfo
