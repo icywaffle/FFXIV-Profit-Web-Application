@@ -4,15 +4,14 @@ import MaterialRecipeComponent from "./MaterialRecipeComponent"
 import Loading from "components/Body/Loading"
 import Confirmation from "./Confirmation"
 
-// Given props.MainRecipe, and props.InnerRecipes,
+// Given RecipeData.MainRecipe, and RecipeData.InnerRecipes,
 // Returns all information about that main recipe.
 // Recursively calls for the inner recipes if they have recipes.
-function BackendRecipe(props) {
+function BackendRecipe() {
 	const [Profits, setProfits] = useState(0)
 	const [ProfitPercentage, setProfitPercentage] = useState(0)
 	const [MarketItemPrice, setMarketItemPrice] = useState(0)
 	const [MarketAmount, setMarketAmount] = useState(0)
-
 	const [MarketIngredientPrice, setMarketIngredientPrice] = useState([
 		0,
 		0,
@@ -43,6 +42,8 @@ function BackendRecipe(props) {
 	const [isLoading, setLoading] = useState(false)
 	const [isUniversalisClicked, setUniversalisClicked] = useState(false)
 
+
+
 	useEffect(() => {
 		if (isUniversalisClicked) {
 			setLoading(true)
@@ -53,8 +54,8 @@ function BackendRecipe(props) {
 
 	// We only try to obtain data each time we get a new recipe
 	useEffect(() => {
-		if (JSON.parse(localStorage.getItem("user")) && props) {
-			const RecipeID = props.MainRecipe.ID
+		if (JSON.parse(localStorage.getItem("user"))) {
+			const RecipeID = RecipeData.MainRecipe.ID
 			// Parse the window location to know what domain we're at
 			var APIURL = window.location.hostname
 			// If we're localhost, then we have to describe by port, otherwise map to api subdomain
@@ -74,23 +75,23 @@ function BackendRecipe(props) {
 					// Only set if we have a response. If we don"t , then return defaults
 					if (data.UserPrices) {
 						// Main Item Data
-						if (data.UserPrices[props.MainRecipe.ItemResultTargetID]) {
+						if (data.UserPrices[RecipeData.MainRecipe.ItemResultTargetID]) {
 							setMarketItemPrice(
-								data.UserPrices[props.MainRecipe.ItemResultTargetID]
+								data.UserPrices[RecipeData.MainRecipe.ItemResultTargetID]
 									.MarketItemPrice
 							)
 							setMarketAmount(
-								data.UserPrices[props.MainRecipe.ItemResultTargetID]
+								data.UserPrices[RecipeData.MainRecipe.ItemResultTargetID]
 									.MarketAmount
 							)
 						}
 						// Ingredient Data
 						const newMarketIngredientPrice = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 						const newMarketIngredientAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-						for (var i = 0; i < props.MainRecipe.IngredientID.length; i++) {
-							if (props.MainRecipe.IngredientID[parseInt(i)] !== 0) {
+						for (var i = 0; i < RecipeData.MainRecipe.IngredientID.length; i++) {
+							if (RecipeData.MainRecipe.IngredientID[parseInt(i)] !== 0) {
 								const Price =
-									data.UserPrices[props.MainRecipe.IngredientID[parseInt(i)]]
+									data.UserPrices[RecipeData.MainRecipe.IngredientID[parseInt(i)]]
 								if (Price) {
 									newMarketIngredientPrice[parseInt(i)] = Price.MarketItemPrice
 									newMarketIngredientAmount[parseInt(i)] = Price.MarketAmount
@@ -106,12 +107,12 @@ function BackendRecipe(props) {
 
 	// We want to set Profits any time we change our prices
 	useEffect(() => {
-		if (props) {
+		if (RecipeData) {
 			var totalSum = 0
 			for (var i = 0; i < MarketIngredientPrice.length; i++) {
 				totalSum +=
 					MarketIngredientPrice[parseInt(i)] *
-					props.MainRecipe.IngredientAmounts[parseInt(i)]
+					RecipeData.MainRecipe.IngredientAmounts[parseInt(i)]
 			}
 			setProfits(MarketItemPrice - totalSum)
 			setMaterialCosts(totalSum)
@@ -126,14 +127,6 @@ function BackendRecipe(props) {
 		let newCopy = [...MarketIngredientPrice]
 		newCopy[parseInt(name)] = value
 		setMarketIngredientPrice(newCopy)
-	}
-
-	function handleAmountChange(event) {
-		const { name } = event.target
-		const value = parseInt(event.target.value) || 0
-		let newCopy = [...MarketIngredientAmount]
-		newCopy[parseInt(name)] = value
-		setMarketIngredientAmount(newCopy)
 	}
 	function handleItemPriceChange(event) {
 		const value = parseInt(event.target.value) || 0
@@ -152,11 +145,11 @@ function BackendRecipe(props) {
 			return
 		}
 		setSubmitted(true)
-		const RecipeID = props.MainRecipe.ID
-		const ItemID = props.MainRecipe.ItemResultTargetID
-		const IngredientItemID = props.MainRecipe.IngredientID
-		const ItemName = props.MainRecipe.Name
-		const IconID = props.MainRecipe.IconID
+		const RecipeID = RecipeData.MainRecipe.ID
+		const ItemID = RecipeData.MainRecipe.ItemResultTargetID
+		const IngredientItemID = RecipeData.MainRecipe.IngredientID
+		const ItemName = RecipeData.MainRecipe.Name
+		const IconID = RecipeData.MainRecipe.IconID
 		var payload = {
 			RecipeID,
 			ItemID,
@@ -218,7 +211,7 @@ function BackendRecipe(props) {
 				</button>
 		)
 	}
-	if (props === null) {
+	if (RecipeData === null) {
 		return null
 	}
 
@@ -227,7 +220,7 @@ function BackendRecipe(props) {
 		const request = async () => {
 
 			// Call for the main recipe price first
-			const mainRecipeID = props.MainRecipe.ItemResultTargetID
+			const mainRecipeID = RecipeData.MainRecipe.ItemResultTargetID
 			const mainResponse = await fetch("https://universalis.app/api/Sargatanas/" + mainRecipeID.toString())
 			const data = await mainResponse.json()
 			// Force wait for 60ms, so that we can rate limit our calls.
@@ -242,10 +235,10 @@ function BackendRecipe(props) {
 			// Then we can call for the recipe ingredients next
 			const newMarketIngredientPrices = [...MarketIngredientPrice]
 
-			for (var i = 0; i < props.MainRecipe.IngredientID.length; i++) {
+			for (var i = 0; i < RecipeData.MainRecipe.IngredientID.length; i++) {
 				const index = i
-				if (props.MainRecipe.IngredientID[parseInt(i)] !== 0) {
-					const itemID = props.MainRecipe.IngredientID[parseInt(i)]
+				if (RecipeData.MainRecipe.IngredientID[parseInt(i)] !== 0) {
+					const itemID = RecipeData.MainRecipe.IngredientID[parseInt(i)]
 
 					const response = await fetch("https://universalis.app/api/Sargatanas/" + itemID.toString())
 					const data = await response.json()
@@ -281,39 +274,24 @@ function BackendRecipe(props) {
 		</button>)
 
 	}
-
+	if (RecipeData === undefined) {
+		return <React.Fragment></React.Fragment>
+	}
 	return (
-		<div>
-			<Loading loading={props.loading} />
+		< div >
+			<Loading loading={isLoading} />
 			<div className="uk-container">
 				<div className="uk-width-4-5 uk-float-right">
 					{UniversalisButton()}
 				</div>
 			</div>
-			<MainRecipeComponent
-				baserecipe={props.MainRecipe}
-				onSubmit={onSubmit}
-				MarketItemPrice={MarketItemPrice}
-				handleItemPriceChange={handleItemPriceChange}
-				Profits={Profits}
-				ProfitPercentage={ProfitPercentage}
-				MaterialCosts={MaterialCosts}
-			/>
-			<MaterialRecipeComponent
-				baserecipe={props.MainRecipe}
-				matinfo={props.InnerRecipes}
-				MarketIngredientAmount={MarketIngredientAmount}
-				MarketIngredientPrice={MarketIngredientPrice}
-				handleIngredientPriceChange={handleIngredientPriceChange}
-				handleAmountChange={handleAmountChange}
-				onSubmit={onSubmit}
-			/>
+			<MainRecipeComponent />
 			<div className="uk-container">
 				<div className="uk-width-4-5 uk-float-right">
 					{confirmationButton()}
 				</div>
 			</div>
-		</div>
+		</div >
 	)
 }
 

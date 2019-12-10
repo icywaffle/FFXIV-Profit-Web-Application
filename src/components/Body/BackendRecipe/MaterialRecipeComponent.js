@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react"
 import BackendRecipe from "./BackendRecipe"
+import MainRecipeComponent from "./MainRecipeComponent"
 
 function MaterialRecipeComponent(props) {
     const [ingredientPrice, setIngredientPrice] = useState(props.MarketIngredientPrice)
+
     // Every time we change the ingredient price, reflect the change
     useEffect(() => {
         setIngredientPrice(props.MarketIngredientPrice)
     }, [props.MarketIngredientPrice])
-    const baserecipe = props.baserecipe
-    const matinfo = props.matinfo
+
+
+    const baserecipe = props.baserecipe.Recipes
+    const matinfo = props.matinfo.Recipes
     const materialList = baserecipe.IngredientNames.map((material, index) => {
         // If there is no material, just return nothing
         if (material === "") {
@@ -23,7 +27,8 @@ function MaterialRecipeComponent(props) {
                     <li>
                         <a className="uk-accordion-title" href="#">Craftable</a>
                         <div className="uk-accordion-content">
-                            <BackendRecipe MainRecipe={matinfo[matrecipe[parseInt(index)][0]]} InnerRecipes={matinfo} />
+                            <MainRecipeComponent baserecipe={matinfo[matrecipe[parseInt(index)][0]]} InnerRecipes={matinfo} />
+                            <MaterialRecipeComponent baserecipe={matinfo[matrecipe[parseInt(index)][0]]} InnerRecipes={matinfo} />
                         </div>
                     </li>
                 </ul>
