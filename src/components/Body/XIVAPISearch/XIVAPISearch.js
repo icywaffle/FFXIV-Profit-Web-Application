@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import BackendRecipe from "components/Body/BackendRecipe"
 import APIReponse from "./APIResponse"
 import SearchFormComponent from "./SearchFormComponent"
 
@@ -6,8 +7,15 @@ function XIVAPISearch() {
     const [loading, setLoadStatus] = useState(false)
     const [itemName, setItemName] = useState("")
     const [searchData, setSearchData] = useState(null)
+    const [recipeData, setRecipeData] = useState(null)
+    const [queryRecipeID] = useState(window.location.search.substring(10))
     const [isRecipeClicked, setRecipeClicked] = useState(false)
 
+    useEffect(() => {
+        if (queryRecipeID !== "") {
+            backendSearch(queryRecipeID)
+        }
+    }, [queryRecipeID])
 
     useEffect(() => {
         if (isRecipeClicked) {
@@ -15,6 +23,32 @@ function XIVAPISearch() {
         }
     }, [isRecipeClicked])
 
+    // Searches using the backend RESTful api server, for the specific information about that recipeID
+    function backendSearch(recipeID) {
+        // Parse the window location to know what domain we're at
+        var APIURL = window.location.hostname
+        // If we're localhost, then we have to describe by port, otherwise map to api subdomain
+        if (window.location.hostname === "localhost") {
+            APIURL = "http://localhost:8080"
+        } else {
+            APIURL = "https://api." + APIURL
+        }
+        // Add the path
+        APIURL = APIURL + "/recipe/" + recipeID
+
+        fetch(APIURL, {
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setSearchData(null)
+                setRecipeData(data)
+                setLoadStatus(false)
+            })
+            .catch(
+                setLoadStatus(false)
+            )
+    }
 
     // Uses the xivapi Search response to obtain a quicker way to search for a specific recipe that we may not have in the database
     // Default pagenumber should be 1. If there are other pages, the next page and prev page buttons should handle that
@@ -35,6 +69,7 @@ function XIVAPISearch() {
                     setLoadStatus(false)
                 })
         }
+        setRecipeData(null)
     }
 
     function incrementPage() {
@@ -64,16 +99,9 @@ function XIVAPISearch() {
         // THEN you can set loading.
         setRecipeClicked(true)
 
-        // Parse the window location to know what domain we're at
-        var URL = window.location.hostname
-        // If we're localhost, then we have to describe by port, otherwise map to api subdomain
-        if (window.location.hostname === "localhost") {
-            URL = "http://localhost:3000"
-        }
-        // Add the path
-        URL = URL + "/recipe/?ID=" + value
-        // We now have a recipeID, send it to Backend Recipes
-        window.location = URL
+        // We now have a recipeID
+        // Given this recipeID, we need to call the database, for the information
+        backendSearch(value)
     }
 
     function handleClick() {
@@ -92,14 +120,30 @@ function XIVAPISearch() {
         handleClick()
     }
 
-    return (
-        <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light"
-            uk-height-viewport="expand: true"
-        >
-            <SearchFormComponent handleFormEnter={handleFormEnter} itemName={itemName} handleChangeItemName={handleChangeItemName} handleClick={handleClick} />
-            <APIReponse loading={loading} incrementPage={incrementPage} decrementPage={decrementPage} searchData={searchData} handleItemClick={handleItemClick} />
-        </div>
+    // Only show API Response if we haven"t found anything.
+    // If we did find something, then we can just switch
+    if (recipeData === null) {
+        return (
+            <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light"
+                uk-height-viewport="expand: true"
+            >
+                <SearchFormComponent handleFormEnter={handleFormEnter} itemName={itemName} handleChangeItemName={handleChangeItemName} handleClick={handleClick} />
+                <APIReponse loading={loading} incrementPage={incrementPage} decrementPage={decrementPage} searchData={searchData} handleItemClick={handleItemClick} />
+            </div>
 
-    )
+        )
+    } else {
+        return (
+            <div className="uk-background-secondary uk-animation-slide-left uk-flex-wrap uk-flex-column uk-light"
+                uk-height-viewport="expand: true"
+            >
+                <SearchFormComponent handleFormEnter={handleFormEnter} itemName={itemName} handleChangeItemName={handleChangeItemName} handleClick={handleClick} />
+                <BackendRecipe loading={loading} MainRecipe={recipeData.MainRecipe.Recipes} InnerRecipes={recipeData.InnerRecipes.Recipes} />
+            </div>
+
+        )
+    }
+
+
 }
 export default XIVAPISearch
