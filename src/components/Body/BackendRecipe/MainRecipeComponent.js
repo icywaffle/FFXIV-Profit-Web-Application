@@ -5,7 +5,7 @@ import React from "react"
 function MainRecipeComponent(props) {
     const baserecipe = props.baserecipe
     return (
-        <div className="uk-section uk-padding-small">
+        <div className="uk-section uk-padding-small uk-background-secondary uk-light">
             <div className="uk-container">
                 <div className="uk-width-4-5 uk-float-right">
                     <h4>

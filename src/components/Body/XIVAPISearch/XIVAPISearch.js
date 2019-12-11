@@ -99,9 +99,12 @@ function XIVAPISearch() {
         // THEN you can set loading.
         setRecipeClicked(true)
 
-        // We now have a recipeID
-        // Given this recipeID, we need to call the database, for the information
-        backendSearch(value)
+        // Redirect to the specific item
+        var url = "https://" + window.location.host + "/search?RecipeID=" + value
+        if (window.location.hostname === "localhost") {
+            url = "http://localhost:3000/search?RecipeID=" + value
+        }
+        window.location = url
     }
 
     function handleClick() {

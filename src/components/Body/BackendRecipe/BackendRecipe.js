@@ -283,7 +283,7 @@ function BackendRecipe(props) {
 	}
 
 	return (
-		<div>
+		<React.Fragment>
 			<Loading loading={props.loading} />
 			<div className="uk-container">
 				<div className="uk-width-4-5 uk-float-right">
@@ -313,7 +313,7 @@ function BackendRecipe(props) {
 					{confirmationButton()}
 				</div>
 			</div>
-		</div>
+		</React.Fragment>
 	)
 }
 
