@@ -230,7 +230,8 @@ function BackendRecipe(props) {
 
 			// Call for the main recipe price first
 			const mainRecipeID = props.MainRecipe.ItemResultTargetID
-			const mainResponse = await fetch("https://universalis.app/api/Sargatanas/" + mainRecipeID.toString())
+			const userSelectedServer = localStorage.getItem("server")
+			const mainResponse = await fetch("https://universalis.app/api/" + userSelectedServer + "/" + mainRecipeID.toString())
 			const data = await mainResponse.json()
 			// Force wait for 60ms, so that we can rate limit our calls.
 			await new Promise((resolve) => {
@@ -275,12 +276,19 @@ function BackendRecipe(props) {
 			return (<Loading loading={isLoading} />)
 		}
 
-		return (<button
-			className="uk-button uk-button-default"
-			onClick={UniversalisApp}
-		>
-			Fill Profits with Universalis
-		</button>)
+		return (
+			<React.Fragment>
+				<h3>
+					Current Server: {localStorage.getItem("server")}
+				</h3>
+				<button
+					className="uk-button uk-button-default"
+					onClick={UniversalisApp}
+				>
+					Fill Profits with Universalis
+				</button>
+			</React.Fragment>
+		)
 
 	}
 
