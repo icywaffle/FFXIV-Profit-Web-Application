@@ -1,9 +1,11 @@
 import React from "react"
+import ConvertTimestamp from "../ConvertTimestamp"
 
 // Given the correct BaseInfo from the BaseInfo struct,
 // Returns the main recipe's info
 function MainRecipeComponent(props) {
     const baserecipe = props.baserecipe
+    const date = ConvertTimestamp(props.Added)
     return (
         <div className="uk-section uk-padding-small uk-background-secondary uk-light">
             <div className="uk-container">
@@ -34,6 +36,7 @@ function MainRecipeComponent(props) {
                         <li>Material Costs: {props.MaterialCosts}</li>
                         <li>Bought All Materials Profit: {props.Profits}</li>
                         <li>Bought All Materials Profit Percentage: {props.ProfitPercentage}%</li>
+                        <li>Added: {date}</li>
                     </ul>
                 </div>
             </div>

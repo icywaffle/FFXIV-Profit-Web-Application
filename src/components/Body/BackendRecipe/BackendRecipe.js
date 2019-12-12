@@ -42,6 +42,7 @@ function BackendRecipe(props) {
 	const [submitted, setSubmitted] = useState(false)
 	const [isLoading, setLoading] = useState(false)
 	const [isUniversalisClicked, setUniversalisClicked] = useState(false)
+	const [Added, setAdded] = useState(0)
 
 	useEffect(() => {
 		if (isUniversalisClicked) {
@@ -99,6 +100,7 @@ function BackendRecipe(props) {
 						}
 						setMarketIngredientPrice(newMarketIngredientPrice)
 						setMarketIngredientAmount(newMarketIngredientAmount)
+						setAdded(data.UserProfits.Added)
 					}
 				})
 		}
@@ -298,6 +300,7 @@ function BackendRecipe(props) {
 				Profits={Profits}
 				ProfitPercentage={ProfitPercentage}
 				MaterialCosts={MaterialCosts}
+				Added={Added}
 			/>
 			<MaterialRecipeComponent
 				baserecipe={props.MainRecipe}
