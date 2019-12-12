@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 function LogoutComponent(props) {
     const logoutStyle = {
@@ -7,6 +7,47 @@ function LogoutComponent(props) {
         margin: 0,
         padding: 0,
     }
+    const [servers, setServers] = useState(null)
+    const [currSelectedServer, setCurrSelectedServer] = useState(localStorage.getItem("server"))
+
+    // Only fetch the servers once
+    useEffect(() => {
+        fetch("https://xivapi.com/servers/dc")
+            .then((response) => response.json())
+            .then((data) => {
+                const xivapiServers = Object.entries(data).map((datacenter) => {
+                    const array = []
+
+                    for (var i = 0; i < datacenter[1].length; i++) {
+                        array.push(<option value={datacenter[1][i]}>{datacenter[1][i]}</option>)
+                    }
+
+                    return (
+                        <React.Fragment>
+                            <optgroup label={datacenter[0]}>
+                                {array}
+                            </optgroup>
+                        </React.Fragment>
+                    )
+
+                })
+
+                setServers(xivapiServers)
+            })
+    }, [])
+
+    function selectedServer(event) {
+        const index = event.target.selectedIndex
+        const server = event.target.options[index].value
+        setCurrSelectedServer(server)
+    }
+
+    function saveServer() {
+        localStorage.setItem("server", currSelectedServer)
+        window.location.reload()
+    }
+
+
     return (
         <li>
             <a>
@@ -29,6 +70,31 @@ function LogoutComponent(props) {
                     </li>
                     <li className="uk-nav-divider"></li>
                     <li>
+                        <form>
+                            <div class="uk-margin">
+                                Server:
+                                <select
+                                    class="uk-select"
+                                    onChange={selectedServer}
+                                    value={currSelectedServer}
+                                >
+                                    {servers}
+                                </select>
+                            </div>
+                        </form>
+                    </li>
+                    <li>
+                        <button
+                            className="uk-button uk-button-default uk-text-success uk-text-capitalize"
+                            style={logoutStyle}
+                            onClick={saveServer}
+                        >
+                            {"Save Settings "}
+                            <span data-uk-icon="icon: cloud-upload" className="uk-icon" />
+                        </button>
+                    </li>
+                    <li className="uk-nav-divider"></li>
+                    <li>
                         <button
                             className="uk-button uk-button-default uk-text-danger uk-text-capitalize"
                             onClick={props.Logout}
@@ -41,7 +107,7 @@ function LogoutComponent(props) {
                 </ul>
 
             </div>
-        </li>
+        </li >
     )
 }
 
