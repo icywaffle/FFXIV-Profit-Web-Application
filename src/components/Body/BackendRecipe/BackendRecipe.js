@@ -84,6 +84,7 @@ function BackendRecipe(props) {
 								data.UserPrices[props.MainRecipe.ItemResultTargetID]
 									.MarketAmount
 							)
+							setAdded(data.UserProfits.Added)
 						}
 						// Ingredient Data
 						const newMarketIngredientPrice = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -100,7 +101,6 @@ function BackendRecipe(props) {
 						}
 						setMarketIngredientPrice(newMarketIngredientPrice)
 						setMarketIngredientAmount(newMarketIngredientAmount)
-						setAdded(data.UserProfits.Added)
 					}
 				})
 		}
