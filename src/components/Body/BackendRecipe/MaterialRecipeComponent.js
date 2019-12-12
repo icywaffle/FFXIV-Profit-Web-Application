@@ -28,16 +28,16 @@ function MaterialRecipeComponent(props) {
                             <a class="uk-accordion-title" href="#">
                                 <img
                                     className="crafticon"
-                                    src={"/icon/060000/06011" + (matinfo[matrecipe[parseInt(index)][i]].CraftTypeTargetID + 2).toString() + ".png"}
+                                    src={"/icon/060000/06011" + (matinfo[matrecipe[parseInt(index)][parseInt(i)]].CraftTypeTargetID + 2).toString() + ".png"}
                                 />
-                                {" Lv.  " + matinfo[matrecipe[parseInt(index)][i]].RecipeLevelTable.ClassJobLevel}
-                                {"★".repeat(matinfo[matrecipe[parseInt(index)][i]].RecipeLevelTable.Stars)}
+                                {" Lv.  " + matinfo[matrecipe[parseInt(index)][parseInt(i)]].RecipeLevelTable.ClassJobLevel}
+                                {"★".repeat(matinfo[matrecipe[parseInt(index)][parseInt(i)]].RecipeLevelTable.Stars)}
                                 <br></br>
 
                                 {" " + material} Recipe
                         </a>
                             <div class="uk-accordion-content">
-                                <BackendRecipe MainRecipe={matinfo[matrecipe[parseInt(index)][i]]} InnerRecipes={matinfo} />
+                                <BackendRecipe MainRecipe={matinfo[matrecipe[parseInt(index)][parseInt(i)]]} InnerRecipes={matinfo} />
                             </div>
                         </li>
                     </ul>
