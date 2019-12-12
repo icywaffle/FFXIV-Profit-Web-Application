@@ -7,23 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.2.5] - 2019-12-12
+## [3.2.5][] - 2019-12-12
 ### Added
-- An actual Changelog to log any new changes and features that were added.
-- Dates were added to both Profits and Recipe searches for previous profits that were submitted
-- Servers can now be selected from the user's profile now.
-- Multiple recipes can now be viewed from the searches.
+-   An actual Changelog to log any new changes and features that were added.
+-   Dates were added to both Profits and Recipe searches for previous profits that were submitted
+-   Servers can now be selected from the user's profile now.
+-   Multiple recipes can now be viewed from the searches.
 
 
-## [3.2.0] - 2019-12-10
+## [3.2.0][] - 2019-12-10
 ### Added
-- Universalis Feature to find prices of materials automatically.
+-   Universalis Feature to find prices of materials automatically.
 
 ### Changed
-- Fixed Async Logouts/Login, so that you can actually logout and login to the API
-- Fixed routes for Staging and Production that's added into the code.
+-   Fixed Async Logouts/Login, so that you can actually logout and login to the API
+-   Fixed routes for Staging and Production that's added into the code.
   
 
-## [1.0.0] - 2019-##-##
+## [1.0.0][] - 2019-##-##
 ### Added
-- Basic Website Functionality with a Search option to find recipes
+-   Basic Website Functionality with a Search option to find recipes
